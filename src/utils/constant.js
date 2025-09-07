@@ -1,7 +1,7 @@
 export default {
-  // 开发环境配置
-  baseURL: process.env.NODE_ENV === 'production' ? "http://blog.inter-trade.top/api" : "http://localhost:8000/api",
-  webURL: process.env.NODE_ENV === 'production' ? "http://blog.inter-trade.top" : "http://localhost:8000",
+  // 开发环境配置 - 临时使用HTTP测试
+  baseURL: "http://blog.inter-trade.top/api",
+  webURL: "http://blog.inter-trade.top",
   // baseURL: "http://www.monkey-papa.com/api", // 线上地址加上/api
   // webURL: "http://www.monkey-papa.com",  // 线上地址
   //诗词语录
