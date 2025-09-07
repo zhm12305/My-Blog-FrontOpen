@@ -3,11 +3,18 @@
 //   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const cdn = {
   js: [
-    "https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.11/vue.min.js",
-    // "https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/vuex/3.6.2/vuex.min.js",
-    "https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue-router/3.2.0/vue-router.min.js",
-    "https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/axios/0.21.1/axios.min.js",
+    "https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js",
+    "https://cdn.jsdelivr.net/npm/vue-router@3.2.0/dist/vue-router.min.js", 
+    "https://cdn.jsdelivr.net/npm/axios@0.21.4/dist/axios.min.js",
+    "https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js",
   ],
+  externals: {
+    vue: "Vue",
+    "vue-router": "VueRouter",
+    axios: "axios",
+    jquery: "$",
+    echarts: "echarts",
+  },
 };
 module.exports = {
   devServer: {
