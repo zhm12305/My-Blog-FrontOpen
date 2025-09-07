@@ -158,7 +158,7 @@ export default {
       }
       treeHole.avatar =
         this.$store.state.currentUser.avatar ||
-        "https://picsum.photos/100/100?random=14";
+        "https://www.qiniuyun.monkey-papa.icu/images/avatar";
       treeHole.username = this.$store.state.currentUser.username;
       this.$http
         .post(

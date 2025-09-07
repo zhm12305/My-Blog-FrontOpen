@@ -1,7 +1,7 @@
 export default {
-  // 开发环境配置 - 临时使用HTTP测试
-  baseURL: "http://blog.inter-trade.top/api",
-  webURL: "http://blog.inter-trade.top",
+  // 自动检测协议 - 生产环境使用HTTPS，开发环境使用HTTP (注意8024端口)
+  baseURL: window.location.protocol === 'https:' ? "https://blog.inter-trade.top/api" : "http://blog.inter-trade.top:8024/api",
+  webURL: window.location.protocol === 'https:' ? "https://blog.inter-trade.top" : "http://blog.inter-trade.top:8024",
   // baseURL: "http://www.monkey-papa.com/api", // 线上地址加上/api
   // webURL: "http://www.monkey-papa.com",  // 线上地址
   //诗词语录
@@ -11,9 +11,9 @@ export default {
   //目录
   tocbot: "https://cdn.bootcdn.net/ajax/libs/tocbot/4.21.0/tocbot.min.js",
   //上传图片文件地址 elementUI:action
-  qiniuUploadImages: "http://blog.inter-trade.top/api/resource/updateImage/", // 你的后端线上地址加上/api/resource/updateImage/
+  qiniuUploadImages: (window.location.protocol === 'https:' ? "https://blog.inter-trade.top/api/resource/updateImage/" : "http://blog.inter-trade.top:8024/api/resource/updateImage/"), // 你的后端线上地址加上/api/resource/updateImage/
   //表情地址,md图片地址
-  qiniuUploadEntrance: "http://blog.inter-trade.top/", // 你的后端域名
+  qiniuUploadEntrance: (window.location.protocol === 'https:' ? "https://blog.inter-trade.top/" : "http://blog.inter-trade.top:8024/"), // 你的后端域名
   //视频地址
   favoriteVideo: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
   //按钮颜色
