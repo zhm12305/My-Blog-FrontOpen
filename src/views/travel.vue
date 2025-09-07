@@ -41,7 +41,7 @@
           v-if="!$common.mobile() && !mobile"
           class="shadow-box travel-header-right"
           style="
-            background-image: url(https://picsum.photos/800/600?random=13);
+            background-image: url(https://www.qiniuyun.monkey-papa.icu/gif/%E7%BA%A2%E5%AD%A9%E5%84%BF.gif);
           "
         >
           <div class="card-content">
