@@ -11,11 +11,11 @@ export default {
   //目录
   tocbot: "https://cdn.bootcdn.net/ajax/libs/tocbot/4.21.0/tocbot.min.js",
   //上传图片文件地址 elementUI:action
-  qiniuUploadImages: "http://www.monkey-papa.com/api/resource/updateImage/", // 你的后端线上地址加上/api/resource/updateImage/
+  qiniuUploadImages: "http://blog.inter-trade.top/api/resource/updateImage/", // 你的后端线上地址加上/api/resource/updateImage/
   //表情地址,md图片地址
-  qiniuUploadEntrance: "http://www.monkey-papa.com/", // 你的七牛云存储空间的外链域名
+  qiniuUploadEntrance: "http://blog.inter-trade.top/", // 你的后端域名
   //视频地址
-  favoriteVideo: "https://www.qiniuyun.monkey-papa.icu/avatar/nahida.mp4",
+  favoriteVideo: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
   //按钮颜色
   before_color_1: "var(--blue13)",
   after_color_1: "linear-gradient(45deg, var(--red), var(--purple1))",
@@ -87,34 +87,34 @@ export default {
   ],
   about: [
     {
-      img: "https://www.qiniuyun.monkey-papa.icu/avatar/%E4%B8%8D%E8%89%AF%E4%BA%BA1.jpg",
-      tit: "女帝",
-      sub: "巾帼女帝，新生红衣😍",
+      img: "https://picsum.photos/300/400?random=1",
+      tit: "博客创建者",
+      sub: "欢迎来到我的个人博客😊",
     },
     {
-      img: "https://www.qiniuyun.monkey-papa.icu/avatar/%E4%B8%8D%E8%89%AF%E4%BA%BA2.jpg",
-      tit: "新不良帅",
-      sub: "弃天道，择霸道🥱",
+      img: "https://picsum.photos/300/400?random=2",
+      tit: "技术爱好者",
+      sub: "专注于前后端开发🚀",
     },
     {
-      img: "https://www.qiniuyun.monkey-papa.icu/avatar/%E4%B8%8D%E8%89%AF%E4%BA%BA3.jpg",
-      tit: "四大尸祖",
-      sub: "搞笑女+搞笑男😅",
+      img: "https://picsum.photos/300/400?random=3",
+      tit: "终身学习者",
+      sub: "保持好奇心，不断学习📚",
     },
     {
-      img: "https://www.qiniuyun.monkey-papa.icu/avatar/%E4%B8%8D%E8%89%AF%E4%BA%BA4.png",
-      tit: "这俩货",
-      sub: "导致我每集片头都不跳过😋",
+      img: "https://picsum.photos/300/400?random=4",
+      tit: "代码分享者",
+      sub: "乐于分享技术心得💻",
     },
     {
-      img: "https://www.qiniuyun.monkey-papa.icu/avatar/%E4%B8%8D%E8%89%AF%E4%BA%BA6.jpg",
-      tit: "奥姑",
-      sub: "好腿，只能说被打的真惨🤣",
+      img: "https://picsum.photos/300/400?random=5",
+      tit: "生活记录者",
+      sub: "用文字记录美好时光✨",
     },
     {
-      img: "https://www.qiniuyun.monkey-papa.icu/avatar/%E4%B8%8D%E8%89%AF%E4%BA%BA7.jpg",
-      tit: "随心",
-      sub: "(*^▽^*)",
+      img: "https://picsum.photos/300/400?random=6",
+      tit: "梦想追逐者",
+      sub: "为理想而努力奋斗🎯",
     },
   ],
   themeMapConfig: [

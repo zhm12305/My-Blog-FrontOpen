@@ -22,7 +22,7 @@ export default new Vuex.Store({
       avatar: "",
       randomCover: [],
     },
-    changeBg: "url(https://www.qiniuyun.monkey-papa.icu/images/changeBg3)",
+    changeBg: "url(https://picsum.photos/1920/1080?random=26)",
     isShowLoading: false,
     top: 0,
     pageView: {},

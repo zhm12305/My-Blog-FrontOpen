@@ -454,11 +454,11 @@ export default {
         });
         return;
       }
-      if (this.username === "monkey-papa") {
+      if (this.username === "admin") {
         this.$notify({
           type: "error",
           title: "可恶🤬",
-          message: "用户名不可以跟店长昵称一样喔~~~😊",
+          message: "用户名不可以跟站长昵称一样喔~~~😊",
           position: "top-left",
           offset: 50,
         });

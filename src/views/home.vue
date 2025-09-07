@@ -1119,11 +1119,11 @@ export default {
       const dom = document.querySelector(".background-image-changeBg");
       dom.setAttribute(
         "style",
-        "background-image: url(https://www.qiniuyun.monkey-papa.icu/images/changeBg3);background-size: cover;background-attachment: local;background-position: center;width: 100%;height: 100%;"
+        "background-image: url(https://picsum.photos/1920/1080?random=15);background-size: cover;background-attachment: local;background-position: center;width: 100%;height: 100%;"
       );
       this.$store.commit(
         "changeBgBox",
-        "url(https://www.qiniuyun.monkey-papa.icu/images/changeBg3)"
+        "url(https://picsum.photos/1920/1080?random=16)"
       );
     },
     handleChangeBg(val, i) {

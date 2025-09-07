@@ -2,12 +2,12 @@
   <div class="content">
     <div class="left">
       <img
-        src="https://www.qiniuyun.monkey-papa.icu/avatar/verify2.png"
+        src="https://picsum.photos/400/300?random=11"
         class="people p-animtion"
         alt="people"
       />
       <img
-        src="https://www.qiniuyun.monkey-papa.icu/avatar/verify1.png"
+        src="https://picsum.photos/400/300?random=12"
         class="sphere s-animtion"
         alt="sphere"
       />
