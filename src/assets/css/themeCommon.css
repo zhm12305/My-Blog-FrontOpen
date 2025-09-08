@@ -5,8 +5,8 @@
   --myAsideBorderColor1: rgba(0, 255, 255, 0.7);
   --gradualBackground: linear-gradient(to right bottom, var(--red), var(--red6), var(--blue1), var(--green6));
   --transparent: rgba(0, 0, 0, 0);
-  --miniMask: rgba(0, 0, 0, 0.15);
-  --mask: rgba(0, 0, 0, 0.3);
+  --miniMask: rgba(0, 0, 0, 0.1);
+  --mask: rgba(0, 0, 0, 0.2);
   --black: black;
   --black1: black;
   --black2: #0000;
@@ -23,10 +23,10 @@
   --toolbarBackground: rgba(0, 238, 255, 0.3);
   --toolbarBackground1: rgba(0, 238, 255, 0.3);
   --gradientBG: linear-gradient(-90deg, var(--red), var(--red6), var(--blue1), var(--green6));
-  --mask: rgba(255, 255, 255, 0.15);
-  --whiteMask: rgba(255, 255, 255, 0.3);
-  --whiteMask1: rgba(255, 255, 255, 0.3);
-  --maxMaxWhiteMask: rgba(255, 255, 255, 0.67);
+  --mask: rgba(255, 255, 255, 0.1);
+  --whiteMask: rgba(255, 255, 255, 0.2);
+  --whiteMask1: rgba(255, 255, 255, 0.2);
+  --maxMaxWhiteMask: rgba(255, 255, 255, 0.5);
   --white: #fff;
   --white1: #fff;
   --white2: #f7f7fa;

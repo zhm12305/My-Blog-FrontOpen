@@ -3,8 +3,8 @@
 @import url("./themeCommon.css");
 /* 主题1 */
 :root {
-  --background: rgba(255, 255, 255, 0.4);
-  --background1: rgba(255, 255, 255, 0.4);
+  --background: rgba(255, 255, 255, 0.2);
+  --background1: rgba(255, 255, 255, 0.2);
   --favoriteBg: #f7f9fe;
   --fontColor: #363636;
   --borderColor: #21232a;
