@@ -3,9 +3,9 @@ export default {
   // baseURL: "http://localhost:8000/api",
   // webURL: "http://localhost:8000",
   
-  // 生产环境API地址 - 通过Cloudflare Worker代理
-  baseURL: "https://blog-api-proxy.zhm19334637080.workers.dev/api",
-  webURL: "https://blog-api-proxy.zhm19334637080.workers.dev",
+  // 生产环境API地址 - 通过Cloudflare HTTPS代理
+  baseURL: "https://blog.inter-trade.top/api",
+  webURL: "https://blog.inter-trade.top",
   //诗词语录
   hitokoto: "https://v1.hitokoto.cn",
   shehui: "https://api.oick.cn/yulu/api.php",
@@ -13,7 +13,7 @@ export default {
   //目录
   tocbot: "https://cdn.bootcdn.net/ajax/libs/tocbot/4.21.0/tocbot.min.js",
   //上传图片文件地址 elementUI:action  
-  qiniuUploadImages: "https://blog-api-proxy.zhm19334637080.workers.dev/api/resource/updateImage/", // 通过Worker代理
+  qiniuUploadImages: "https://blog.inter-trade.top/api/resource/updateImage/", // 通过Cloudflare HTTPS代理
   //表情地址,md图片地址
   qiniuUploadEntrance: "http://qiniu.inter-trade.top/", // 您的七牛云存储空间的外链域名
   //视频地址
