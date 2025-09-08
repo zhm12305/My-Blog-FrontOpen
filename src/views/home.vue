@@ -706,7 +706,7 @@ export default {
     return {
       disGame: false,
       pcGameList: [1, 2, 3, 4, 5, 6, 7, 8],
-      game: "http://game.eean.cn/pc/game",
+      game: "https://game.eean.cn/pc/game",
       toolButton: false,
       hoverEnter: false,
       mouseAnimation: false,
@@ -1056,7 +1056,7 @@ export default {
       if (index === 0 || index === 1) {
         index = 6;
       }
-      this.game = "http://game.eean.cn/pc/game" + index++;
+      this.game = "https://game.eean.cn/pc/game" + index++;
     },
     openChangeBg() {
       this.changeBgBox = true;

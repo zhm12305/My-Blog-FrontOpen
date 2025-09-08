@@ -1,20 +1,13 @@
 /* 先引入打包分析插件 */
-// const BundleAnalyzerPlugin =
-//   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const cdn = {
   js: [
-    "https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js",
-    "https://cdn.jsdelivr.net/npm/vue-router@3.2.0/dist/vue-router.min.js", 
-    "https://cdn.jsdelivr.net/npm/axios@0.21.4/dist/axios.min.js",
-    "https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js",
+    // "https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/vuex/3.6.2/vuex.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.2.0/vue-router.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js",
   ],
-  externals: {
-    vue: "Vue",
-    "vue-router": "VueRouter",
-    axios: "axios",
-    jquery: "$",
-    echarts: "echarts",
-  },
 };
 module.exports = {
   devServer: {
@@ -22,8 +15,8 @@ module.exports = {
   },
   configureWebpack: {
     plugins: [
-      // 依赖大小分析工具 (生产环境移除)
-      // new BundleAnalyzerPlugin(),
+      // 依赖大小分析工具
+      new BundleAnalyzerPlugin(),
     ],
     //这就是在告诉Webpack：请不要将这个模块注入编译后的JS文件里，对于我源代码里出现的任何import/require这个模块的语句，请将它保留。
     externals: {

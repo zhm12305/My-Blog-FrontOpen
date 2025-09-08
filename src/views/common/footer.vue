@@ -6,7 +6,7 @@
           class="icon_link"
           target="_blank"
           rel="noopener"
-          href="http://www.blog.zjh2002.icu"
+          href="https://www.blog.zjh2002.icu"
           title="个人主页"
         >
           <i class="iconfont icon-zhinanzhen"></i>
@@ -89,31 +89,31 @@
         <div class="footer-links">
           <a
             class="footer-item"
-            href="http://www.blog.zjh2002.icu/#/tools"
+            href="https://www.blog.zjh2002.icu/#/tools"
             data-pjax-state=""
             >藏宝阁</a
           >
           <a
             class="footer-item"
-            href="http://www.blog.zjh2002.icu/#/friend"
+            href="https://www.blog.zjh2002.icu/#/friend"
             data-pjax-state=""
             >友链</a
           >
           <a
             class="footer-item"
-            href="http://www.blog.zjh2002.icu/#/message"
+            href="https://www.blog.zjh2002.icu/#/message"
             data-pjax-state=""
             >留言厅</a
           >
           <a
             class="footer-item"
-            href="http://www.blog.zjh2002.icu/#/travel "
+            href="https://www.blog.zjh2002.icu/#/travel "
             data-pjax-state=""
             >个人相册</a
           >
           <a
             class="footer-item"
-            href="http://www.blog.zjh2002.icu/#/funny"
+            href="https://www.blog.zjh2002.icu/#/funny"
             data-pjax-state=""
             >幻音坊</a
           >
@@ -124,37 +124,37 @@
         <div class="footer-links">
           <a
             class="footer-item"
-            href="http://www.blog.zjh2002.icu/#/sort?sortId=1"
+            href="https://www.blog.zjh2002.icu/#/sort?sortId=1"
             data-pjax-state=""
             >学习笔记</a
           >
           <a
             class="footer-item"
-            href="http://www.blog.zjh2002.icu/#/sort?sortId=6"
+            href="https://www.blog.zjh2002.icu/#/sort?sortId=6"
             data-pjax-state=""
             >我的项目</a
           >
           <a
             class="footer-item"
-            href="http://www.blog.zjh2002.icu/#/sort?sortId=3"
+            href="https://www.blog.zjh2002.icu/#/sort?sortId=3"
             data-pjax-state=""
             >游戏</a
           >
           <a
             class="footer-item"
-            href="http://www.blog.zjh2002.icu/#/sort?sortId=4"
+            href="https://www.blog.zjh2002.icu/#/sort?sortId=4"
             data-pjax-state=""
             >动漫</a
           >
           <a
             class="footer-item"
-            href="http://www.blog.zjh2002.icu/#/sort?sortId=7"
+            href="https://www.blog.zjh2002.icu/#/sort?sortId=7"
             data-pjax-state=""
             >随想</a
           >
           <a
             class="footer-item"
-            href="http://www.blog.zjh2002.icu/#/sort"
+            href="https://www.blog.zjh2002.icu/#/sort"
             data-pjax-state=""
             >查看全部</a
           >
@@ -183,7 +183,7 @@
           >
           <a
             class="footer-item"
-            href="http://www.blog.zjh2002.icu/#/friend"
+            href="https://www.blog.zjh2002.icu/#/friend"
             data-pjax-state=""
             >查看更多</a
           >
@@ -198,7 +198,7 @@
             <a
               target="_blank"
               rel="noopener"
-              href="http://www.blog.zjh2002.icu"
+              href="https://www.blog.zjh2002.icu"
               title="点击访问Monkey-PaPa的主页"
               style="margin-left: 5px"
               >Monkey-PaPa
