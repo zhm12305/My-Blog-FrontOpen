@@ -1,18 +1,21 @@
 export default {
-  baseURL: "http://localhost:8000/api",
-  webURL: "http://localhost:8000",
-  // baseURL: "http://www.monkey-papa.com/api", // 线上地址加上/api
-  // webURL: "http://www.monkey-papa.com",  // 线上地址
+  // 本地开发环境
+  // baseURL: "http://localhost:8000/api",
+  // webURL: "http://localhost:8000",
+  
+  // 生产环境API地址 - 您的后端服务器
+  baseURL: "http://192.227.167.51:8089/api",
+  webURL: "http://192.227.167.51:8089",
   //诗词语录
   hitokoto: "https://v1.hitokoto.cn",
   shehui: "https://api.oick.cn/yulu/api.php",
   jinrishici: "https://v1.jinrishici.com/all.json",
   //目录
   tocbot: "https://cdn.bootcdn.net/ajax/libs/tocbot/4.21.0/tocbot.min.js",
-  //上传图片文件地址 elementUI:action
-  qiniuUploadImages: "http://www.monkey-papa.com/api/resource/updateImage/", // 你的后端线上地址加上/api/resource/updateImage/
+  //上传图片文件地址 elementUI:action  
+  qiniuUploadImages: "http://192.227.167.51:8089/api/resource/updateImage/", // 您的后端服务器地址
   //表情地址,md图片地址
-  qiniuUploadEntrance: "http://www.monkey-papa.com/", // 你的七牛云存储空间的外链域名
+  qiniuUploadEntrance: "http://qiniu.inter-trade.top/", // 您的七牛云存储空间的外链域名
   //视频地址
   favoriteVideo: "https://www.qiniuyun.monkey-papa.icu/avatar/nahida.mp4",
   //按钮颜色
