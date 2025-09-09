@@ -1,16 +1,19 @@
 <template>
-  <div v-if="!$common.isEmpty(article)">
-    <!-- 首页图片 -->
+  <div>
+    <!-- 首页图片 - 始终显示背景 -->
     <div
       style="animation: header-effect 2s"
       :style="{ 
-        backgroundImage: `url(${article.articleCover || 'https://zhi-blog.inter-trade.top/hana-lin-20200323-8-ok.jpg'})`,
+        backgroundImage: `url(${(article && article.articleCover) || 'https://zhi-blog.inter-trade.top/hana-lin-20200323-8-ok.jpg'})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
       }"
       class="background-image background-image-changeBg blur-filter"
     ></div>
+    
+    <!-- 文章内容 - 只有有数据时才显示 -->
+    <div v-if="!$common.isEmpty(article)">
     <!-- 顶部 -->
     <div class="article-head my-animation-slide-top">
       <!-- 文章信息 -->
@@ -165,6 +168,18 @@
         </commentBox>
       </div>
     </el-dialog>
+    </div> <!-- 关闭文章内容div -->
+    
+    <!-- 加载状态或无数据状态 -->
+    <div v-else class="article-loading myCenter" style="height: 50vh; color: var(--fontColor);">
+      <div style="text-align: center;">
+        <div style="font-size: 20px; margin-bottom: 10px;">🔍</div>
+        <div>文章加载中...</div>
+        <div style="font-size: 14px; color: var(--miniFont); margin-top: 10px;">
+          如果文章不存在，将自动跳转到首页
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -491,6 +506,10 @@ export default {
             position: "top-left",
             offset: 50,
           });
+          // 文章加载失败，跳转到首页
+          setTimeout(() => {
+            this.$router.push('/');
+          }, 2000);
         });
     },
     highlight() {
