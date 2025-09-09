@@ -73,9 +73,27 @@ export default {
       xhr.open('get', this.$constant.shehui)
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
-          let shehui = xhr.responseText
-          that.hitokoto.hitokoto = shehui.substring(1, shehui.length - 1)
+          if (xhr.status === 200) {
+            try {
+              let shehui = xhr.responseText
+              if (shehui && shehui.length > 2) {
+                that.hitokoto.hitokoto = shehui.substring(1, shehui.length - 1)
+              } else {
+                that.hitokoto.hitokoto = '社会语录加载失败'
+              }
+            } catch (error) {
+              console.error('处理社会语录失败:', error)
+              that.hitokoto.hitokoto = '社会语录加载失败'
+            }
+          } else {
+            console.error('社会语录API请求失败，状态码:', xhr.status)
+            that.hitokoto.hitokoto = '社会语录加载失败'
+          }
         }
+      }
+      xhr.onerror = function() {
+        console.error('社会语录API网络错误')
+        that.hitokoto.hitokoto = '网络连接失败'
       }
       xhr.send()
     },
@@ -85,8 +103,28 @@ export default {
       xhr.open('get', this.$constant.jinrishici)
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
-          that.guShi = JSON.parse(xhr.responseText)
+          if (xhr.status === 200) {
+            try {
+              const contentType = xhr.getResponseHeader("content-type");
+              if (contentType && contentType.includes("application/json")) {
+                that.guShi = JSON.parse(xhr.responseText)
+              } else {
+                console.warn('诗词API返回非JSON数据')
+                that.guShi = { content: "诗词加载失败" }
+              }
+            } catch (error) {
+              console.error('解析诗词JSON失败:', error)
+              that.guShi = { content: "诗词加载失败" }
+            }
+          } else {
+            console.error('诗词API请求失败，状态码:', xhr.status)
+            that.guShi = { content: "诗词加载失败" }
+          }
         }
+      }
+      xhr.onerror = function() {
+        console.error('诗词API网络错误')
+        that.guShi = { content: "网络连接失败" }
       }
       xhr.send()
     },
@@ -96,8 +134,28 @@ export default {
       xhr.open('get', this.$constant.hitokoto)
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
-          that.hitokoto = JSON.parse(xhr.responseText)
+          if (xhr.status === 200) {
+            try {
+              const contentType = xhr.getResponseHeader("content-type");
+              if (contentType && contentType.includes("application/json")) {
+                that.hitokoto = JSON.parse(xhr.responseText)
+              } else {
+                console.warn('一言API返回非JSON数据')
+                that.hitokoto = { hitokoto: "一言加载失败" }
+              }
+            } catch (error) {
+              console.error('解析一言JSON失败:', error)
+              that.hitokoto = { hitokoto: "一言加载失败" }
+            }
+          } else {
+            console.error('一言API请求失败，状态码:', xhr.status)
+            that.hitokoto = { hitokoto: "一言加载失败" }
+          }
         }
+      }
+      xhr.onerror = function() {
+        console.error('一言API网络错误')
+        that.hitokoto = { hitokoto: "网络连接失败" }
       }
       xhr.send()
     }

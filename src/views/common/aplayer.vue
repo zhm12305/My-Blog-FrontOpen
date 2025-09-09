@@ -21,7 +21,17 @@ export default {
     let id = "626864109"; //封面 ID / 单曲 ID / 歌单 ID
     const apiUrl = `https://api.i-meto.com/meting/api?server=${server}&type=${type}&id=${id}`;
     fetch(apiUrl)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`音乐API请求失败: ${response.status}`);
+        }
+        // 检查内容类型
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error('音乐API返回非JSON数据');
+        }
+        return response.json();
+      })
       .then((data) => {
         this.ap = new APlayer({
           container: document.getElementById("aplayer"),
@@ -52,6 +62,11 @@ export default {
           }
         };
         this.ap.list.show();
+      })
+      .catch((error) => {
+        console.error('音乐播放器初始化失败:', error);
+        // 可以在这里添加用户友好的错误提示
+        // 或者加载默认的音乐列表
       });
   },
   methods: {

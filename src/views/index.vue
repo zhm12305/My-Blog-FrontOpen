@@ -298,9 +298,38 @@ export default {
       xhr.open("get", this.$constant.jinrishici);
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
-          that.guShi = JSON.parse(xhr.responseText);
-          that.printerInfo = that.guShi.content;
+          if (xhr.status === 200) {
+            try {
+              // 检查响应是否为JSON格式
+              const contentType = xhr.getResponseHeader("content-type");
+              if (contentType && contentType.includes("application/json")) {
+                that.guShi = JSON.parse(xhr.responseText);
+                that.printerInfo = that.guShi.content;
+              } else {
+                console.warn('今日诗词API返回非JSON数据，跳过解析');
+                // 设置默认内容
+                that.guShi = { content: "诗词加载中..." };
+                that.printerInfo = "诗词加载中...";
+              }
+            } catch (error) {
+              console.error('解析今日诗词JSON失败:', error);
+              console.log('响应内容:', xhr.responseText);
+              // 设置默认内容
+              that.guShi = { content: "诗词加载失败" };
+              that.printerInfo = "诗词加载失败";
+            }
+          } else {
+            console.error('今日诗词API请求失败，状态码:', xhr.status);
+            // 设置默认内容
+            that.guShi = { content: "诗词加载失败" };
+            that.printerInfo = "诗词加载失败";
+          }
         }
+      };
+      xhr.onerror = function() {
+        console.error('今日诗词API网络错误');
+        that.guShi = { content: "网络连接失败" };
+        that.printerInfo = "网络连接失败";
       };
       xhr.send();
     },
