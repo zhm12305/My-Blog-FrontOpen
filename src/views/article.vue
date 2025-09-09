@@ -568,11 +568,14 @@ export default {
         let language = hljs.getLanguage(lang.toLowerCase());
         if (language === undefined) {
           // 启用自动检测
-          let autoLanguage = hljs.highlightAuto(preCode.text());
-          preCode.removeClass("language-" + lang);
-          lang = autoLanguage.language;
-          if (lang === undefined) {
+          try {
+            let autoLanguage = hljs.highlightAuto(preCode.text());
+            preCode.removeClass("language-" + lang);
+            lang = autoLanguage && autoLanguage.language ? autoLanguage.language : "javascript";
+          } catch (error) {
+            console.warn('代码高亮自动检测失败:', error);
             lang = "javascript";
+            preCode.removeClass("language-" + lang);
           }
           preCode.addClass("language-" + lang);
         } else {
@@ -599,7 +602,9 @@ export default {
             i +
             '"><i class="fa fa-clipboard" aria-hidden="true"></i></a>'
         );
-        new ClipboardJS(".copy-code");
+        if (typeof ClipboardJS !== 'undefined') {
+          new ClipboardJS(".copy-code");
+        }
       });
       if ($(".entry-content").children("table").length > 0) {
         $(".entry-content")

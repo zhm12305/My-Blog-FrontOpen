@@ -873,7 +873,7 @@ export default {
       localStorage.setItem("themeColor", color);
     },
     openRandomArticle() {
-      // 获取随机文章 - 改进版本
+      // 获取随机文章 - 安全版本
       this.$http
         .post(this.$constant.baseURL + "/article/listArticle", {
           current: 1,
@@ -886,18 +886,28 @@ export default {
             const randomArticle = articles[randomIndex];
             this.$router.push({ path: "/article", query: { id: randomArticle.id } });
           } else {
-            // 如果没有文章，回退到原来的方法
-            const articleTotal = this.$store.getters.articleTotal || 20; // 默认值20
-            const random = Math.floor(Math.random() * articleTotal) + 12;
-            this.$router.push({ path: "/article", query: { id: random } });
+            // 没有文章时显示友好提示
+            this.$notify({
+              type: "info",
+              title: "暂无文章 📝",
+              message: "博客还没有文章哦，期待博主的精彩内容！",
+              position: "top-left",
+              offset: 50,
+              duration: 3000
+            });
           }
         })
         .catch((error) => {
-          // 发生错误时的回退方案
+          // 发生错误时显示错误提示
           console.error("获取随机文章失败:", error);
-          const articleTotal = this.$store.getters.articleTotal || 20;
-          const random = Math.floor(Math.random() * articleTotal) + 12;
-          this.$router.push({ path: "/article", query: { id: random } });
+          this.$notify({
+            type: "error",
+            title: "获取失败 😅",
+            message: "无法获取文章列表，请稍后再试",
+            position: "top-left",
+            offset: 50,
+            duration: 3000
+          });
         });
     },
     async httpInputBtn() {
