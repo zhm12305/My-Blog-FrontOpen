@@ -154,7 +154,7 @@ function startSakura() {
 }
 
 img.onload = function () {
-  // 默认关闭
-  // startSakura();
+  // 默认开启樱花特效
+  startSakura();
   window.startSakura = startSakura;
 };
