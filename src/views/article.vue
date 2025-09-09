@@ -3,7 +3,7 @@
     <!-- 首页图片 -->
     <div
       style="animation: header-effect 2s"
-      :style="{ background: `url(${article.articleCover})` }"
+      :style="{ background: `url(${article.articleCover || 'https://zhi-blog.inter-trade.top/hana-lin-20200323-8-ok.jpg'})` }"
       class="background-image background-image-changeBg blur-filter"
     ></div>
     <!-- 顶部 -->
@@ -363,7 +363,7 @@ export default {
           source: this.article.id,
         })
         .then((res) => {
-          if (!this.$common.isEmpty(res.result[0])) {
+          if (res.result && res.result[0] && !this.$common.isEmpty(res.result[0])) {
             res.result[0].records.forEach((c) => {
               c.content = c.content.replace(
                 /\n{2,}/g,
@@ -459,7 +459,7 @@ export default {
           userId: this.$store.state.currentUser.id,
         })
         .then((res) => {
-          if (!this.$common.isEmpty(res.result[0])) {
+          if (res.result && res.result[0] && !this.$common.isEmpty(res.result[0])) {
             this.article = res.result[0].data[0];
             this.getColorFromImage(this.article.articleCover);
             this.getNews();
@@ -470,6 +470,9 @@ export default {
               this.addId();
               this.getTocbot();
             });
+          } else {
+            // 如果没有获取到文章数据，跳转到首页
+            this.$router.push('/');
           }
         })
         .catch((error) => {
