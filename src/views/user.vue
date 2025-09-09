@@ -467,7 +467,7 @@ export default {
       let user = {
         province: this.province || "",
         username: this.username.trim(),
-        code: this.code.trim().toUpperCase(),
+        code: this.code.trim(),
         password: this.$common.encrypt(this.password.trim()),
       };
       if (this.dialogTitle === "邮箱验证码") {

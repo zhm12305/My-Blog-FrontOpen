@@ -6,6 +6,9 @@ export default {
   // 生产环境API地址 - 通过Cloudflare HTTPS代理
   baseURL: "https://blog.inter-trade.top/api",
   webURL: "https://blog.inter-trade.top",
+  
+  // AES加密密钥 - 用于前端密码加密
+  cryptojs_key: "POEMON-BLOG-KEY1",
   //诗词语录
   hitokoto: "https://v1.hitokoto.cn",
   shehui: "https://api.oick.cn/yulu/api.php",

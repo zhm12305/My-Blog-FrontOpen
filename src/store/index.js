@@ -22,7 +22,7 @@ export default new Vuex.Store({
       avatar: "",
       randomCover: [],
     },
-    changeBg: "url(https://www.qiniuyun.monkey-papa.icu/images/changeBg3)",
+    changeBg: "url(https://zhi-blog.inter-trade.top/hana-lin-20200323-8-ok.jpg)",
     isShowLoading: false,
     top: 0,
     pageView: {},
