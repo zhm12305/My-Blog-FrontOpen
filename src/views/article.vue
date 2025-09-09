@@ -233,9 +233,23 @@ export default {
   },
   filters: {
     formatter(row) {
-      const day = row.split(".")[0].split("T")[0];
-      const time = row.split(".")[0].split("T")[1];
-      return `${day} 日 ${time}`;
+      if (!row || typeof row !== 'string') {
+        return '时间未知';
+      }
+      try {
+        const parts = row.split(".");
+        if (parts.length === 0) return '时间格式错误';
+        
+        const dateTimeParts = parts[0].split("T");
+        if (dateTimeParts.length < 2) return '时间格式错误';
+        
+        const day = dateTimeParts[0];
+        const time = dateTimeParts[1];
+        return `${day} 日 ${time}`;
+      } catch (error) {
+        console.warn('时间格式化错误:', error);
+        return '时间格式错误';
+      }
     },
   },
   beforeRouteLeave(to, from, next) {
@@ -246,6 +260,9 @@ export default {
   },
   methods: {
     getSummary() {
+      if (!this.article || !this.article.id) {
+        return;
+      }
       if (this.article.summary || this.summary) {
         return;
       }
@@ -339,6 +356,9 @@ export default {
         });
     },
     submitWeiYan(content) {
+      if (!this.article || !this.article.id) {
+        return;
+      }
       let weiYan = {
         content: content,
         createTime: this.newsTime,
@@ -376,6 +396,9 @@ export default {
         });
     },
     getNews() {
+      if (!this.article || !this.article.id) {
+        return;
+      }
       this.$http
         .post(this.$constant.baseURL + "/weiYan/listNews/", {
           current: 1,
@@ -587,6 +610,9 @@ export default {
           position: "top-left",
           offset: 50,
         });
+        return;
+      }
+      if (!this.article || !this.article.id) {
         return;
       }
       if (!this.article.articleLikeStatus) {
