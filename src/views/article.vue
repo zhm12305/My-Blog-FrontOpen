@@ -432,12 +432,18 @@ export default {
     onScrollPage() {
       let scrollTop =
         document.documentElement.scrollTop || document.body.scrollTop;
+      
+      // 安全检查 #article-like 元素是否存在
+      const articleLikeElement = $("#article-like");
+      const articleLikeOffset = articleLikeElement.length > 0 ? articleLikeElement.offset() : null;
+      
       if (scrollTop < window.innerHeight / 4) {
         $(".toc").css("top", window.innerHeight / 2);
         $(".toc").css("display", "unset");
       } else if (
         scrollTop > window.innerHeight / 4 &&
-        scrollTop < $("#article-like").offset().top - window.innerHeight
+        articleLikeOffset && 
+        scrollTop < articleLikeOffset.top - window.innerHeight
       ) {
         $(".toc").css("top", "100px");
         $(".toc").css("display", "unset");
