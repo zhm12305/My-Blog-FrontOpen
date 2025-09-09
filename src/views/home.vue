@@ -782,8 +782,8 @@ export default {
     };
   },
   mounted() {
-    //默认关闭樱花
-    this.handleSakura();
+    //默认开启樱花 - 设置sakuraFlag为true以显示关闭按钮
+    this.sakuraFlag = false;  // false表示樱花已开启，显示关闭按钮
     if (localStorage.getItem("theme") == null) {
       localStorage.setItem("theme", true);
     }
@@ -873,10 +873,32 @@ export default {
       localStorage.setItem("themeColor", color);
     },
     openRandomArticle() {
-      // 我的数据库是从id为12的文章开始的,所以随机数 + 12
-      const articleTotal = this.$store.state.articleTotal;
-      const random = Math.floor(Math.random() * articleTotal) + 12;
-      this.$router.push({ path: "/article", query: { id: random } });
+      // 获取随机文章 - 改进版本
+      this.$http
+        .post(this.$constant.baseURL + "/article/listArticle", {
+          current: 1,
+          size: 1000, // 获取大量文章以供随机选择
+        })
+        .then((res) => {
+          if (res.result && res.result[0] && res.result[0].records && res.result[0].records.length > 0) {
+            const articles = res.result[0].records;
+            const randomIndex = Math.floor(Math.random() * articles.length);
+            const randomArticle = articles[randomIndex];
+            this.$router.push({ path: "/article", query: { id: randomArticle.id } });
+          } else {
+            // 如果没有文章，回退到原来的方法
+            const articleTotal = this.$store.getters.articleTotal || 20; // 默认值20
+            const random = Math.floor(Math.random() * articleTotal) + 12;
+            this.$router.push({ path: "/article", query: { id: random } });
+          }
+        })
+        .catch((error) => {
+          // 发生错误时的回退方案
+          console.error("获取随机文章失败:", error);
+          const articleTotal = this.$store.getters.articleTotal || 20;
+          const random = Math.floor(Math.random() * articleTotal) + 12;
+          this.$router.push({ path: "/article", query: { id: random } });
+        });
     },
     async httpInputBtn() {
       if (this.httpInput.length === 0) {
