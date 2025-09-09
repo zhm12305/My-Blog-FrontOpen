@@ -3,7 +3,12 @@
     <!-- 首页图片 -->
     <div
       style="animation: header-effect 2s"
-      :style="{ background: `url(${article.articleCover || 'https://zhi-blog.inter-trade.top/hana-lin-20200323-8-ok.jpg'})` }"
+      :style="{ 
+        backgroundImage: `url(${article.articleCover || 'https://zhi-blog.inter-trade.top/hana-lin-20200323-8-ok.jpg'})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }"
       class="background-image background-image-changeBg blur-filter"
     ></div>
     <!-- 顶部 -->
@@ -99,7 +104,7 @@
                 })
               "
               >{{
-                article.sort[0].sortName + " ▶ " + article.label[0].labelName
+(article.sort && article.sort[0] ? article.sort[0].sortName : '未分类') + " ▶ " + (article.label && article.label[0] ? article.label[0].labelName : '未标签')
               }}</span
             >
           </div>
@@ -406,7 +411,10 @@ export default {
       let script = document.createElement("script");
       script.type = "text/javascript";
       script.src = this.$constant.tocbot;
-      document.getElementsByTagName("head")[0].appendChild(script);
+      const headElements = document.getElementsByTagName("head");
+      if (headElements.length > 0) {
+        headElements[0].appendChild(script);
+      }
       // 引入成功
       script.onload = function () {
         tocbot.init({
@@ -495,7 +503,8 @@ export default {
       };
       $("pre").each(function (i, item) {
         let preCode = $(item).children("code");
-        let classNameStr = preCode[0].className;
+        if (preCode.length === 0 || !preCode[0]) return; // 安全检查
+        let classNameStr = preCode[0].className || "";
         let classNameArr = classNameStr.split(" ");
         let lang = "";
         classNameArr.some(function (className) {
@@ -527,9 +536,11 @@ export default {
           .attr("data-rel", lang.toUpperCase())
           .addClass(lang.toLowerCase());
         // 启用代码高亮
-        hljs.highlightBlock(preCode[0]);
-        // 启用代码行号
-        hljs.lineNumbersBlock(preCode[0]);
+        if (preCode[0]) {
+          hljs.highlightBlock(preCode[0]);
+          // 启用代码行号
+          hljs.lineNumbersBlock(preCode[0]);
+        }
       });
       $("pre code").each(function (i, block) {
         $(block).attr({
