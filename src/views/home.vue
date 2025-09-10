@@ -1018,11 +1018,11 @@ export default {
           console.log("退出登录完成，当前路由:", this.$route.path);
           // 强制刷新页面确保状态清除
           setTimeout(() => {
-            window.location.href = this.$constant.webURL + "/#/user";
+            window.location.href = "https://zhi-blog.inter-trade.top/#/user";
           }, 500);
         }).catch(() => {
           // 如果路由跳转失败，直接跳转
-          window.location.href = this.$constant.webURL + "/#/user";
+          window.location.href = "https://zhi-blog.inter-trade.top/#/user";
         });
       });
     },
