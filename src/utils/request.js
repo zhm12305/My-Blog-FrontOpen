@@ -51,10 +51,13 @@ axios.interceptors.response.use(
       response.data.code !== 200
     ) {
       if (response.data.code === 300) {
+        // 完全清除所有登录状态
         store.commit("loadCurrentUser", {});
-        localStorage.removeItem("userToken");
         store.commit("loadCurrentAdmin", {});
+        localStorage.removeItem("userToken");
         localStorage.removeItem("adminToken");
+        // 清除vuex持久化数据
+        localStorage.removeItem("vuex");
         //跳转到用户资料界面
         window.location.href = constant.webURL + "/user";
       }

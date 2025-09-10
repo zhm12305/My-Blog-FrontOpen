@@ -372,6 +372,10 @@ export default {
               offset: 50,
               position: "top-left",
             });
+            // 清除可能存在的其他登录状态
+            this.$store.commit("loadCurrentAdmin", {});
+            localStorage.removeItem("adminToken");
+            // 设置新的前台用户状态
             this.$store.commit("loadCurrentUser", res.result[0].data[0]);
             localStorage.setItem(
               "userToken",

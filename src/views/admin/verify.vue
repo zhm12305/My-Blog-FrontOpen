@@ -88,6 +88,10 @@ export default {
         .post(this.$constant.baseURL + "/user/login/", user, true, false)
         .then((res) => {
           if (!this.$common.isEmpty(res.data)) {
+            // 清除可能存在的其他登录状态
+            this.$store.commit("loadCurrentUser", {});
+            localStorage.removeItem("userToken");
+            // 设置新的后台管理状态
             localStorage.setItem("adminToken", res.data.accessToken);
             this.$store.commit("loadCurrentAdmin", res.data);
             this.account = "";

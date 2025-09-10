@@ -29,9 +29,14 @@ export default {
         offset: 50,
         position: 'top-left'
       })
+      // 完全清除所有登录状态
+      this.$store.commit('loadCurrentUser', {})
       this.$store.commit('loadCurrentAdmin', {})
+      localStorage.removeItem('userToken')
       localStorage.removeItem('adminToken')
-      this.$router.push({ path: '/' })
+      // 清除vuex持久化数据
+      localStorage.removeItem('vuex')
+      this.$router.push({ path: '/user' })
     }
   }
 }

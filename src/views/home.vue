@@ -842,6 +842,10 @@ export default {
       visible: true,
     };
     this.$store.commit("changeToolbarStatus", toolbarStatus);
+    
+    // 检查并清理无效的登录状态
+    this.checkAndCleanupLoginState();
+    
     this.getWebInfo();
     this.getSortInfo();
     this.mobile = document.body.clientWidth < 600;
@@ -983,9 +987,14 @@ export default {
         offset: 50,
         position: "top-left",
       });
+      // 完全清除所有登录状态
       this.$store.commit("loadCurrentUser", {});
+      this.$store.commit("loadCurrentAdmin", {});
       localStorage.removeItem("userToken");
-      this.$router.push({ path: "/" });
+      localStorage.removeItem("adminToken");
+      // 清除vuex持久化数据
+      localStorage.removeItem("vuex");
+      this.$router.push({ path: "/user" });
     },
     getWebInfo() {
       this.$http
@@ -1092,6 +1101,30 @@ export default {
     },
     openChangeBg() {
       this.changeBgBox = true;
+    },
+    checkAndCleanupLoginState() {
+      // 检查是否存在用户状态但没有对应的token
+      const userToken = localStorage.getItem("userToken");
+      const adminToken = localStorage.getItem("adminToken");
+      const currentUser = this.$store.state.currentUser;
+      const currentAdmin = this.$store.state.currentAdmin;
+      
+      // 如果存在用户状态但没有对应token，清除状态
+      if (currentUser && Object.keys(currentUser).length > 0 && !userToken) {
+        console.log("清除无效的用户状态");
+        this.$store.commit("loadCurrentUser", {});
+      }
+      
+      if (currentAdmin && Object.keys(currentAdmin).length > 0 && !adminToken) {
+        console.log("清除无效的管理员状态");
+        this.$store.commit("loadCurrentAdmin", {});
+      }
+      
+      // 如果既没有token也没有有效状态，确保Vuex状态为空
+      if (!userToken && !adminToken) {
+        this.$store.commit("loadCurrentUser", {});
+        this.$store.commit("loadCurrentAdmin", {});
+      }
     },
     changeBg(item) {
       // 刷新时触发并且没有本地缓存的背景，也没有点击切换背景
