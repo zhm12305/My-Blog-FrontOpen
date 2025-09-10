@@ -1028,22 +1028,18 @@ export default {
         console.log("清理localStorage时出错:", e);
       }
       
-      // 强制更新页面状态
+      // 根据当前页面决定跳转方式
       this.$nextTick(() => {
-        // 如果当前就在user页面，直接刷新页面
         if (this.$route.path === '/user') {
+          // 如果当前就在个人中心页面，强制刷新页面确保状态更新
+          console.log("当前在个人中心页面，强制刷新");
           window.location.reload();
         } else {
-          // 否则跳转到user页面
-          this.$router.push({ path: "/user" }).then(() => {
-            console.log("退出登录完成，当前路由:", this.$route.path);
-            // 短暂延迟后刷新，确保状态更新
-            setTimeout(() => {
-              window.location.reload();
-            }, 100);
-          }).catch(() => {
-            // 如果路由跳转失败，直接跳转
-            window.location.href = "https://zhi-blog.inter-trade.top/#/user";
+          // 如果在其他页面，直接跳转到个人中心，不需要额外刷新
+          console.log("从其他页面退出登录，跳转到个人中心");
+          this.$router.push({ path: "/user" }).catch(() => {
+            // 如果路由跳转失败，使用硬跳转
+            window.location.href = this.$constant.webURL + "/#/user";
           });
         }
       });
