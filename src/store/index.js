@@ -29,6 +29,8 @@ export default new Vuex.Store({
     newArticles: [],
     articleTotal: 0,
     userList: [],
+    // 访客状态通知
+    guestNotification: null,
   },
   getters: {
     // 访客禁用按钮权限
@@ -108,6 +110,17 @@ export default new Vuex.Store({
     },
     topPercentage(state, top) {
       state.top = top;
+    },
+    // 触发访客状态通知
+    TRIGGER_GUEST_NOTIFICATION(state, notificationData) {
+      state.guestNotification = {
+        ...notificationData,
+        timestamp: Date.now()
+      };
+    },
+    // 清除访客状态通知
+    CLEAR_GUEST_NOTIFICATION(state) {
+      state.guestNotification = null;
     },
   },
   plugins: [

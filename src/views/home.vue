@@ -865,6 +865,22 @@ export default {
     topPercentage() {
       return this.$store.state.top;
     },
+    // 监听访客通知状态
+    guestNotification() {
+      return this.$store.state.guestNotification;
+    },
+  },
+  watch: {
+    // 监听访客通知变化
+    guestNotification(newVal) {
+      if (newVal) {
+        this.showGuestNotification(newVal);
+        // 显示通知后清除状态，避免重复显示
+        setTimeout(() => {
+          this.$store.commit("CLEAR_GUEST_NOTIFICATION");
+        }, 100);
+      }
+    },
   },
   methods: {
     setColor(color) {
@@ -1297,6 +1313,18 @@ export default {
             offset: 50,
           });
         });
+    },
+    // 显示访客状态通知
+    showGuestNotification(notification) {
+      this.$notify({
+        title: notification.title,
+        message: notification.message,
+        type: notification.type,
+        offset: 50,
+        position: "top-left",
+        duration: 3000,
+        showClose: true
+      });
     },
     EDIT() {
       if (this.editFlag) {

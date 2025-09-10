@@ -203,6 +203,12 @@ router.beforeEach((to, from, next) => {
 });
 router.afterEach((to) => {
   const title = to.fullPath;
+  
+  // 检查用户登录状态并显示访客提示
+  setTimeout(() => {
+    checkAndNotifyGuestStatus(to);
+  }, 1000); // 延迟1秒，确保页面加载完成
+  
   if (
     to.fullPath == "/about" ||
     to.fullPath == "/user" ||
@@ -217,4 +223,37 @@ router.afterEach((to) => {
     store.commit("SET_SHOWLOADING", false);
   }, 2500);
 });
+
+// 检查并提示访客状态的函数
+function checkAndNotifyGuestStatus(to) {
+  // 跳过特定页面不显示提示
+  const skipPages = ['/user', '/verifyLogin'];
+  if (skipPages.some(page => to.path.includes(page))) {
+    return;
+  }
+  
+  const userToken = localStorage.getItem("userToken");
+  const adminToken = localStorage.getItem("adminToken");
+  const currentUser = store.state.currentUser;
+  const currentAdmin = store.state.currentAdmin;
+  
+  // 检查是否有有效的登录状态
+  const hasValidUser = userToken && currentUser && Object.keys(currentUser).length > 0;
+  const hasValidAdmin = adminToken && currentAdmin && Object.keys(currentAdmin).length > 0;
+  
+  if (!hasValidUser && !hasValidAdmin) {
+    // 通过 store 触发访客状态通知
+    store.commit("TRIGGER_GUEST_NOTIFICATION", {
+      title: "访客模式 👋",
+      message: "您当前以访客身份浏览，登录后可享受更多功能！",
+      type: "info",
+      path: to.path
+    });
+    console.log(`页面加载 ${to.path} - 当前为访客状态`);
+  } else {
+    // 如果已登录，显示欢迎信息（可选）
+    const userName = currentUser?.username || currentAdmin?.username || '用户';
+    console.log(`页面加载 ${to.path} - 欢迎回来，${userName}！`);
+  }
+}
 export default router;
