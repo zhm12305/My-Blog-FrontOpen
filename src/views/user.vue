@@ -53,6 +53,7 @@
               >忘记密码？</a
             >
             <button @click="login()">登录</button>
+            <button @click="forceLogoutCleanup()" style="background: #ff6b6b; margin-top: 10px;">强制清理状态</button>
           </div>
         </div>
         <div class="overlay-container">
@@ -315,11 +316,97 @@ export default {
   mounted() {
     this.postProvinceAndCity();
     this.currentUser = this.$store.state.currentUser;
+    
+    // 清理无效的登录状态
+    this.checkAndCleanupLoginState();
   },
   methods: {
     addPicture(res) {
       this.avatar = res;
       this.submitDialog();
+    },
+    checkAndCleanupLoginState() {
+      // 检查并清理无效的登录状态
+      const userToken = localStorage.getItem("userToken");
+      const adminToken = localStorage.getItem("adminToken");
+      const currentUser = this.$store.state.currentUser;
+      const currentAdmin = this.$store.state.currentAdmin;
+      
+      console.log("个人中心 - 检查登录状态:", {
+        userToken: !!userToken,
+        adminToken: !!adminToken,
+        currentUser: !!currentUser && Object.keys(currentUser).length > 0,
+        currentAdmin: !!currentAdmin && Object.keys(currentAdmin).length > 0
+      });
+      
+      // 如果存在用户状态但没有对应token，清除状态
+      if (currentUser && Object.keys(currentUser).length > 0 && !userToken) {
+        console.log("个人中心 - 清除无效的用户状态");
+        this.$store.commit("loadCurrentUser", {});
+        this.currentUser = {};
+      }
+      
+      if (currentAdmin && Object.keys(currentAdmin).length > 0 && !adminToken) {
+        console.log("个人中心 - 清除无效的管理员状态");
+        this.$store.commit("loadCurrentAdmin", {});
+      }
+      
+      // 如果既没有token也没有有效状态，确保Vuex状态为空
+      if (!userToken && !adminToken) {
+        this.$store.commit("loadCurrentUser", {});
+        this.$store.commit("loadCurrentAdmin", {});
+        this.currentUser = {};
+      }
+      
+      // 同步当前组件状态
+      this.currentUser = this.$store.state.currentUser;
+    },
+    forceLogoutCleanup() {
+      // 强制清理所有登录状态和缓存数据
+      console.log("强制清理所有登录状态");
+      
+      // 清除所有Vuex状态
+      this.$store.commit("loadCurrentUser", {});
+      this.$store.commit("loadCurrentAdmin", {});
+      
+      // 清除所有localStorage数据
+      localStorage.removeItem("userToken");
+      localStorage.removeItem("adminToken");
+      localStorage.removeItem("vuex");
+      
+      // 清除所有相关缓存
+      try {
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && (key.includes('user') || key.includes('admin') || key.includes('token') || key.includes('vuex'))) {
+            keysToRemove.push(key);
+          }
+        }
+        keysToRemove.forEach(key => localStorage.removeItem(key));
+      } catch (e) {
+        console.log("清理localStorage时出错:", e);
+      }
+      
+      // 重置组件状态
+      this.currentUser = {};
+      this.account = "";
+      this.password = "";
+      this.active = false;
+      
+      // 显示成功提示
+      this.$notify({
+        title: "清理完成🍨",
+        message: "已强制清理所有登录状态，页面将刷新",
+        type: "success",
+        offset: 50,
+        position: "top-left",
+      });
+      
+      // 延迟刷新页面
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     },
     signUp() {
       this.active = true;

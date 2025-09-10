@@ -980,6 +980,8 @@ export default {
       }
     },
     logout() {
+      console.log("执行退出登录操作");
+      
       this.$notify({
         title: "可以啦🍨",
         message: "退出登录成功！",
@@ -987,6 +989,7 @@ export default {
         offset: 50,
         position: "top-left",
       });
+      
       // 完全清除所有登录状态
       this.$store.commit("loadCurrentUser", {});
       this.$store.commit("loadCurrentAdmin", {});
@@ -994,7 +997,30 @@ export default {
       localStorage.removeItem("adminToken");
       // 清除vuex持久化数据
       localStorage.removeItem("vuex");
-      this.$router.push({ path: "/user" });
+      
+      // 清除所有相关缓存
+      try {
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && (key.includes('user') || key.includes('admin') || key.includes('token'))) {
+            keysToRemove.push(key);
+          }
+        }
+        keysToRemove.forEach(key => localStorage.removeItem(key));
+      } catch (e) {
+        console.log("清理localStorage时出错:", e);
+      }
+      
+      // 强制跳转到用户页面并刷新
+      setTimeout(() => {
+        this.$router.push({ path: "/user" }).then(() => {
+          // 确保状态更新
+          this.$nextTick(() => {
+            console.log("退出登录完成，当前路由:", this.$route.path);
+          });
+        });
+      }, 100);
     },
     getWebInfo() {
       this.$http
