@@ -88,7 +88,7 @@
             </div>
             <div class="author-content-item-group column mapAndInfo">
               <div class="author-content-item map single">
-                <span class="map-title">我现在住在 <b>中国，包头市</b></span>
+                <span class="map-title">我现在住在 <b>中国，邯郸市</b></span>
               </div>
               <div class="author-content-item selfInfo single">
                 <div>
@@ -96,17 +96,17 @@
                   <span
                     class="selfInfo-content"
                     style="color: var(--blue1); font-family: 'Microsoft YaHei'"
-                    >2002</span
+                    >2005</span
                   >
                 </div>
                 <div>
-                  <span class="selfInfo-title">内蒙古科技大学</span>
+                  <span class="selfInfo-title">北华航天工业学院</span>
                   <span class="selfInfo-content" style="color: var(--orange1)"
-                    >软件工程</span
+                    >人工智能</span
                   >
                 </div>
                 <div>
-                  <span class="selfInfo-title">职业（2023年）</span>
+                  <span class="selfInfo-title">职业（2025年）</span>
                   <span class="selfInfo-content" style="color: var(--purple1)"
                     >大三学生 👨‍🎓</span
                   >
@@ -116,7 +116,7 @@
                   <span
                     class="selfInfo-content"
                     style="color: var(--red); font-size: 16px"
-                    >金山前端打工人 🧑‍💻</span
+                    >计算机IT 🧑‍💻</span
                   >
                 </div>
               </div>
