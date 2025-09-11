@@ -9,7 +9,7 @@ export default {
   props: {
     info: {
       type: String,
-      default: "monkey-papa",
+      default: "羌笛萧萧安然",
     },
     color: {
       type: String,

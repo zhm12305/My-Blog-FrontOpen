@@ -221,7 +221,7 @@ export default {
       immediate: true,
       handler(newVal) {
         this.loadingMark = newVal;
-        this.loadingText = "Monkey-PaPa";
+        this.loadingText = "羌笛萧萧安然";
       },
     },
     // 翻页

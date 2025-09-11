@@ -12,7 +12,7 @@ export default {
   props: {
     loadingText: {
       type: String,
-      default: 'Monkey-PaPa'
+      default: '羌笛萧萧安然'
     }
   },
   data() {

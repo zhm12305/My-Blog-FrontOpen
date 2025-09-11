@@ -17,7 +17,7 @@
       <div
         style="color: var(--lightRed); padding-left: 34px; margin-bottom: 5px"
       >
-        默认文章作者：Monkey-PaPa
+        默认文章作者：羌笛萧萧安然
       </div>
       <el-form-item label="文章作者" prop="articleAuthor">
         <el-input maxlength="30" v-model="article.articleAuthor"></el-input>
@@ -139,7 +139,7 @@ export default {
       id: this.$route.query.id,
       article: {
         articleTitle: "",
-        articleAuthor: "Monkey-PaPa",
+        articleAuthor: "羌笛萧萧安然",
         articleContent: "",
         commentStatus: true,
         recommendStatus: false,
