@@ -20,7 +20,7 @@
           (!isHitokoto || (isHitokoto && !$common.isEmpty(hitokoto.from_who)))
         ">
         {{ isHitokoto ? hitokoto.from_who : guShi.author }}
-      </p>
+</p>
     </div>
     <slot></slot>
   </div>
@@ -75,9 +75,9 @@ export default {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
             try {
-              let shehui = xhr.responseText
-              if (shehui && shehui.length > 2) {
-                that.hitokoto.hitokoto = shehui.substring(1, shehui.length - 1)
+              const response = JSON.parse(xhr.responseText)
+              if (response.code === 200 && response.data) {
+                that.hitokoto.hitokoto = response.data
               } else {
                 that.hitokoto.hitokoto = '社会语录加载失败'
               }
@@ -105,11 +105,10 @@ export default {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
             try {
-              const contentType = xhr.getResponseHeader("content-type");
-              if (contentType && contentType.includes("application/json")) {
-                that.guShi = JSON.parse(xhr.responseText)
+              const response = JSON.parse(xhr.responseText)
+              if (response.code === 200 && response.data) {
+                that.guShi = response.data
               } else {
-                console.warn('诗词API返回非JSON数据')
                 that.guShi = { content: "诗词加载失败" }
               }
             } catch (error) {
@@ -136,66 +135,104 @@ export default {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
             try {
-              const contentType = xhr.getResponseHeader("content-type");
-              if (contentType && contentType.includes("application/json")) {
-                that.hitokoto = JSON.parse(xhr.responseText)
+              const response = JSON.parse(xhr.responseText)
+              if (response.code === 200 && response.data) {
+                that.hitokoto = response.data
               } else {
-                console.warn('一言API返回非JSON数据')
-                that.hitokoto = { hitokoto: "一言加载失败" }
+                that.hitokoto = { 
+                  hitokoto: '一言加载失败',
+                  from: '',
+                  from_who: ''
+                }
               }
             } catch (error) {
               console.error('解析一言JSON失败:', error)
-              that.hitokoto = { hitokoto: "一言加载失败" }
+              that.hitokoto = { 
+                hitokoto: '一言加载失败',
+                from: '',
+                from_who: ''
+              }
             }
           } else {
             console.error('一言API请求失败，状态码:', xhr.status)
-            that.hitokoto = { hitokoto: "一言加载失败" }
+            that.hitokoto = { 
+              hitokoto: '一言加载失败',
+              from: '',
+              from_who: ''
+            }
           }
         }
       }
       xhr.onerror = function() {
         console.error('一言API网络错误')
-        that.hitokoto = { hitokoto: "网络连接失败" }
+        that.hitokoto = { 
+          hitokoto: '网络连接失败',
+          from: '',
+          from_who: ''
+        }
       }
       xhr.send()
     }
   }
-}
+};
 </script>
+
 <style lang="scss" scoped>
 .poem-container {
-  padding: 90px 0 40px;
-  position: relative;
-}
-.poem-wrap {
-  border-radius: 10px;
-  z-index: 10;
-  text-align: center;
-  letter-spacing: 4px;
-  font-weight: 300;
+  height: 100vh;
   width: 100%;
-  max-width: 800px;
-  div span {
-    padding: 5px 10px;
-    color: var(--red);
-    font-size: 2em;
-    border-radius: 5px;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.poem-wrap {
+  transition: all 0.2s;
+  span {
+    margin-bottom: 20px;
+    color: white;
+    letter-spacing: 3px;
+    opacity: 0.6;
+    font-size: 15px;
+    margin-bottom: 20px;
+    display: block;
   }
-  p {
-    width: 100%;
-    max-width: 800px;
-    color: var(--darkBlue1);
-    &.poem {
-      margin: 40px auto;
-      font-size: 1.5em;
-    }
-    &.info {
-      margin: 20px auto 40px;
-      font-size: 1.1em;
-    }
+  .poem {
+    color: white;
+    letter-spacing: 8px;
+    opacity: 0.9;
+    font-size: 20px;
+    display: block;
+    font-weight: bold;
+    line-height: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .info {
+    color: white;
+    opacity: 0.6;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-align: right;
   }
 }
-.background-image-changeBg {
-  height: 100vh !important;
+
+@media screen and (max-width: 768px) {
+  .poem-wrap {
+    .poem {
+      letter-spacing: 2px;
+      font-size: 16px;
+      line-height: 30px;
+    }
+    span {
+      letter-spacing: 1px;
+      font-size: 12px;
+    }
+    .info {
+      letter-spacing: 1px;
+    }
+  }
 }
 </style>
