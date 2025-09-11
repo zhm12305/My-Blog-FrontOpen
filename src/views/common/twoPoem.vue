@@ -75,15 +75,32 @@ export default {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
             try {
+              // 兼容新的API响应格式
               const response = JSON.parse(xhr.responseText)
               if (response.code === 200 && response.data) {
                 that.hitokoto.hitokoto = response.data
               } else {
-                that.hitokoto.hitokoto = '社会语录加载失败'
+                // 尝试原始格式（纯文本）
+                let shehui = xhr.responseText
+                if (shehui && shehui.length > 2) {
+                  that.hitokoto.hitokoto = shehui.substring(1, shehui.length - 1)
+                } else {
+                  that.hitokoto.hitokoto = '社会语录加载失败'
+                }
               }
             } catch (error) {
-              console.error('处理社会语录失败:', error)
-              that.hitokoto.hitokoto = '社会语录加载失败'
+              // 如果JSON解析失败，尝试作为纯文本处理
+              try {
+                let shehui = xhr.responseText
+                if (shehui && shehui.length > 2) {
+                  that.hitokoto.hitokoto = shehui.substring(1, shehui.length - 1)
+                } else {
+                  that.hitokoto.hitokoto = '社会语录加载失败'
+                }
+              } catch (error2) {
+                console.error('处理社会语录失败:', error2)
+                that.hitokoto.hitokoto = '社会语录加载失败'
+              }
             }
           } else {
             console.error('社会语录API请求失败，状态码:', xhr.status)
@@ -105,10 +122,11 @@ export default {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
             try {
-              const response = JSON.parse(xhr.responseText)
-              if (response.code === 200 && response.data) {
-                that.guShi = response.data
+              const contentType = xhr.getResponseHeader("content-type");
+              if (contentType && contentType.includes("application/json")) {
+                that.guShi = JSON.parse(xhr.responseText)
               } else {
+                console.warn('诗词API返回非JSON数据')
                 that.guShi = { content: "诗词加载失败" }
               }
             } catch (error) {
@@ -135,104 +153,66 @@ export default {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
             try {
-              const response = JSON.parse(xhr.responseText)
-              if (response.code === 200 && response.data) {
-                that.hitokoto = response.data
+              const contentType = xhr.getResponseHeader("content-type");
+              if (contentType && contentType.includes("application/json")) {
+                that.hitokoto = JSON.parse(xhr.responseText)
               } else {
-                that.hitokoto = { 
-                  hitokoto: '一言加载失败',
-                  from: '',
-                  from_who: ''
-                }
+                console.warn('一言API返回非JSON数据')
+                that.hitokoto = { hitokoto: "一言加载失败" }
               }
             } catch (error) {
               console.error('解析一言JSON失败:', error)
-              that.hitokoto = { 
-                hitokoto: '一言加载失败',
-                from: '',
-                from_who: ''
-              }
+              that.hitokoto = { hitokoto: "一言加载失败" }
             }
           } else {
             console.error('一言API请求失败，状态码:', xhr.status)
-            that.hitokoto = { 
-              hitokoto: '一言加载失败',
-              from: '',
-              from_who: ''
-            }
+            that.hitokoto = { hitokoto: "一言加载失败" }
           }
         }
       }
       xhr.onerror = function() {
         console.error('一言API网络错误')
-        that.hitokoto = { 
-          hitokoto: '网络连接失败',
-          from: '',
-          from_who: ''
-        }
+        that.hitokoto = { hitokoto: "网络连接失败" }
       }
       xhr.send()
     }
   }
-};
+}
 </script>
-
 <style lang="scss" scoped>
 .poem-container {
-  height: 100vh;
-  width: 100%;
+  padding: 90px 0 40px;
   position: relative;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
 }
-
 .poem-wrap {
-  transition: all 0.2s;
-  span {
-    margin-bottom: 20px;
-    color: white;
-    letter-spacing: 3px;
-    opacity: 0.6;
-    font-size: 15px;
-    margin-bottom: 20px;
-    display: block;
+  border-radius: 10px;
+  z-index: 10;
+  text-align: center;
+  letter-spacing: 4px;
+  font-weight: 300;
+  width: 100%;
+  max-width: 800px;
+  div span {
+    padding: 5px 10px;
+    color: var(--red);
+    font-size: 2em;
+    border-radius: 5px;
   }
-  .poem {
-    color: white;
-    letter-spacing: 8px;
-    opacity: 0.9;
-    font-size: 20px;
-    display: block;
-    font-weight: bold;
-    line-height: 40px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  .info {
-    color: white;
-    opacity: 0.6;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-align: right;
+  p {
+    width: 100%;
+    max-width: 800px;
+    color: var(--darkBlue1);
+    &.poem {
+      margin: 40px auto;
+      font-size: 1.5em;
+    }
+    &.info {
+      margin: 20px auto 40px;
+      font-size: 1.1em;
+    }
   }
 }
-
-@media screen and (max-width: 768px) {
-  .poem-wrap {
-    .poem {
-      letter-spacing: 2px;
-      font-size: 16px;
-      line-height: 30px;
-    }
-    span {
-      letter-spacing: 1px;
-      font-size: 12px;
-    }
-    .info {
-      letter-spacing: 1px;
-    }
-  }
+.background-image-changeBg {
+  height: 100vh !important;
 }
 </style>

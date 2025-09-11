@@ -9,10 +9,10 @@ export default {
   
   // AES加密密钥 - 用于前端密码加密
   cryptojs_key: "POEMON-BLOG-KEY1",
-  //诗词语录 - 使用后端代理API
-  hitokoto: "https://blog.inter-trade.top/api/quote/hitokoto/",
+  //诗词语录
+  hitokoto: "https://v1.hitokoto.cn",
   shehui: "https://blog.inter-trade.top/api/quote/social/",
-  jinrishici: "https://blog.inter-trade.top/api/quote/poetry/",
+  jinrishici: "https://v1.jinrishici.com/all.json",
   //目录
   tocbot: "https://cdn.bootcdn.net/ajax/libs/tocbot/4.21.0/tocbot.min.js",
   //上传图片文件地址 elementUI:action  
