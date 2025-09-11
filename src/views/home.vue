@@ -1232,11 +1232,11 @@ export default {
       const dom = document.querySelector(".background-image-changeBg");
       dom.setAttribute(
         "style",
-        "background-image: url(https://zhi-blog.inter-trade.top/hana-lin-20200323-8-ok.jpg);background-size: cover;background-attachment: local;background-position: center;width: 100%;height: 100%;"
+        "background-image: url(https://zhi-blog.inter-trade.top/yinlang.jpg);background-size: cover;background-attachment: local;background-position: center;width: 100%;height: 100%;"
       );
       this.$store.commit(
         "changeBgBox",
-        "url(https://zhi-blog.inter-trade.top/hana-lin-20200323-8-ok.jpg)"
+        "url(https://zhi-blog.inter-trade.top/yinlang.jpg)"
       );
     },
     handleChangeBg(val, i) {
