@@ -797,6 +797,11 @@ export default {
     } else {
       this.isDark = true;
     }
+    
+    // 强制应用新的默认背景
+    const newDefaultBg = "url(https://zhi-blog.inter-trade.top/yinlang.jpg)";
+    this.$store.commit("changeBgBox", newDefaultBg);
+    
     this.changeBg();
   },
   beforeDestroy() {
@@ -1175,8 +1180,8 @@ export default {
       }
     },
     changeBg(item) {
-      // 刷新时触发并且没有本地缓存的背景，也没有点击切换背景
-      if (!item && !JSON.parse(localStorage.getItem("vuex")).changeBg) {
+      // 刷新时触发，优先应用store中的背景
+      if (!item) {
         const dom = document.querySelector(".background-image-changeBg");
         const storeInfo = this.$store.state.changeBg;
         const string = storeInfo.split("#");
