@@ -47,7 +47,10 @@ export default {
   width: 100%;
   height: 70px;
   color: var(--black);
-  background-color: var(--favoriteBg);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   .logo {
     line-height: 70px;
     margin-left: 70px;

@@ -3,7 +3,7 @@
     <el-menu
       class="sidebar-el-menu"
       :default-active="this.$route.path"
-      background-color="var(--favoriteBg)"
+      background-color="transparent"
       text-color="var(--black5)"
       active-text-color="var(--blue1)"
       unique-opened
@@ -101,14 +101,32 @@ export default {
   top: 70px;
   bottom: 0;
   overflow-y: scroll;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
   &::-webkit-scrollbar {
     width: 0;
   }
   &-el-menu {
     width: 200px;
+    background: transparent !important;
   }
   > ul {
     height: 100%;
+  }
+}
+
+// 覆盖 element-ui 菜单项的背景色
+::v-deep .el-menu-item {
+  background-color: transparent !important;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+  }
+  
+  &.is-active {
+    background-color: rgba(66, 90, 239, 0.1) !important;
   }
 }
 </style>
