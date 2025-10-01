@@ -23,6 +23,11 @@
         <el-input maxlength="30" v-model="article.articleAuthor"></el-input>
       </el-form-item>
       <el-form-item label="文章内容" prop="articleContent">
+        <div style="margin-bottom: 8px; padding: 8px; background: var(--lightBlue); border-radius: 5px; color: var(--fontColor); font-size: 13px;">
+          💡 插入图片建议：
+          <a href="https://imgse.com/" target="_blank" style="color: var(--red); font-weight: bold;">路过图床</a>
+          上传图片 → 选择"Markdown代码图片链接" → 粘贴到编辑器
+        </div>
         <mavon-editor
           ref="md"
           @imgAdd="imgAdd"
@@ -75,7 +80,10 @@
       </el-form-item> -->
       <el-form-item label="封面" prop="articleCover">
         <div style="display: flex">
-          <el-input v-model="article.articleCover"></el-input>
+          <el-input 
+            v-model="article.articleCover"
+            placeholder="请输入图片链接，推荐使用路过图床：https://imgse.com/"
+          ></el-input>
           <el-image
             v-if="article.articleCover"
             class="table-td-thumb"
@@ -86,7 +94,17 @@
             fit="cover"
           ></el-image>
         </div>
+        <div style="margin-top: 8px; color: var(--blue); font-size: 14px;">
+          💡 推荐使用 
+          <a 
+            href="https://imgse.com/" 
+            target="_blank" 
+            style="color: var(--red); font-weight: bold;"
+          >路过图床</a> 
+          （免费、稳定、CDN加速）上传图片后，复制链接粘贴到上方输入框
+        </div>
         <uploadPicture
+          v-if="$store.state.currentAdmin.qiniuAccessKey"
           :isAdmin="true"
           :ResourceType="'articleCover'"
           style="margin-top: 10px"
@@ -94,6 +112,14 @@
           :maxSize="3"
           :maxNumber="1"
         ></uploadPicture>
+        <div 
+          v-else 
+          style="margin-top: 10px; padding: 10px; background: var(--lightYellow); border-radius: 5px; color: var(--fontColor);"
+        >
+          ℹ️ 提示：未配置七牛云上传功能。建议使用 
+          <a href="https://imgse.com/" target="_blank" style="color: var(--red); font-weight: bold;">路过图床</a> 
+          上传图片，然后粘贴链接即可。
+        </div>
       </el-form-item>
       <el-form-item label="分类" prop="sortId">
         <el-select v-model="article.sortId" placeholder="请选择分类">
@@ -195,10 +221,25 @@ export default {
   },
   methods: {
     imgAdd(pos, file) {
+      // 检查是否配置了七牛云
+      if (!this.$store.state.currentAdmin.qiniuAccessKey) {
+        this.$notify({
+          type: "warning",
+          title: "提示",
+          message: "未配置七牛云上传功能。建议使用路过图床（https://imgse.com/）上传图片后，在编辑器中使用Markdown语法插入：![描述](图片链接)",
+          duration: 5000,
+          position: "top-left",
+          offset: 50,
+        });
+        // 移除编辑器中的占位图
+        this.$refs.md.$refs.toolbar_left.$imgDelByFilename(pos);
+        return;
+      }
+      
       let fd = new FormData();
       fd.append("image", file);
       fd.append("userId", this.$store.state.currentAdmin.id);
-      //上传md文档的图片到七牛云
+      //上传图片到服务器（需配置七牛云）
       this.$http
         .uploadQiniu(this.$constant.qiniuUploadImages, fd)
         .then((res) => {
@@ -206,7 +247,7 @@ export default {
             this.$notify({
               type: "warning",
               title: "淘气👻",
-              message: "上传出错！",
+              message: "上传出错！建议使用路过图床：https://imgse.com/",
               position: "top-left",
               offset: 50,
             });
@@ -243,7 +284,7 @@ export default {
           this.$notify({
             type: "error",
             title: "可恶🤬",
-            message: error.message,
+            message: error.message + " - 建议使用路过图床：https://imgse.com/",
             position: "top-left",
             offset: 50,
           });

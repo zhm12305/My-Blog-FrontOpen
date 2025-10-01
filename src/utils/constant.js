@@ -15,10 +15,20 @@ export default {
   jinrishici: "https://v1.jinrishici.com/all.json",
   //目录
   tocbot: "https://cdn.bootcdn.net/ajax/libs/tocbot/4.21.0/tocbot.min.js",
-  //上传图片文件地址 elementUI:action  
-  qiniuUploadImages: "https://blog.inter-trade.top/api/resource/updateImage/", // 通过Cloudflare HTTPS代理
-  //表情地址,md图片地址
-  qiniuUploadEntrance: "http://qiniu.inter-trade.top/", // 您的七牛云存储空间的外链域名
+  
+  // ========== 图片上传配置 ==========
+  // 推荐使用路过图床（免费、稳定、CDN加速）：https://imgse.com/
+  // 使用方法：
+  // 1. 上传图片到路过图床
+  // 2. 复制图片链接
+  // 3. 直接粘贴到博客的图片输入框
+  // 
+  // 如需使用后台上传功能，请配置七牛云：
+  qiniuUploadImages: "https://blog.inter-trade.top/api/resource/updateImage/", // 后端上传接口
+  qiniuUploadEntrance: "http://qiniu.inter-trade.top/", // 七牛云外链域名（如已配置）
+  
+  // 路过图床（推荐）
+  imgseUrl: "https://imgse.com/", // 路过图床首页
   //视频地址
   favoriteVideo: "https://www.qiniuyun.monkey-papa.icu/avatar/nahida.mp4",
   //按钮颜色

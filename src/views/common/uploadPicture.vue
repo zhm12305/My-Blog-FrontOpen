@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div style="margin-bottom: 10px; padding: 10px; background: var(--lightGreen); border-radius: 5px; color: var(--fontColor); font-size: 13px;">
+      💡 <strong>推荐使用路过图床</strong>：
+      <a href="https://imgse.com/" target="_blank" style="color: var(--red); font-weight: bold;">https://imgse.com/</a>
+      （免费、稳定、CDN加速）
+    </div>
     <el-upload
       class="upload-demo"
       ref="upload"
@@ -22,6 +27,9 @@
       <div class="el-upload__text">
         <img style="margin-top: 10px" src="../../assets/svg/upload.svg" />
         <div>拖拽上传 / 点击上传</div>
+        <div style="font-size: 12px; color: var(--gray); margin-top: 5px;">
+          （需配置七牛云）
+        </div>
       </div>
       <template v-if="listType === 'picture'">
         <div slot="tip" class="el-upload__tip">
