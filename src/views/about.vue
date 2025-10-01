@@ -202,7 +202,7 @@
                   </div>
                 </div>
                 <div class="banner-button-group">
-                  <a href="https://www.zjh2002.icu" class="banner-button">
+                  <a href="https://zhi-blog.inter-trade.top" class="banner-button">
                     <i class="fas fa-circle-plus"></i>
                     <span class="banner-button-text">我的音乐</span>
                   </a>

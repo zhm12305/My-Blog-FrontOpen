@@ -101,7 +101,7 @@ export default {
       visible: false, // 是否展示右键菜单
       top: 0,
       left: 0,
-      copyContent: "z-poemon",
+      copyContent: "zhm19334637080",
     };
   },
   created() {
@@ -180,7 +180,7 @@ color: rgb(30,152,255);
 ██████╔╝ ╚████╔╝ ║██████║
 ██╔══██╗  ╚██╔╝  ║██╔═══╗
 ██████╔╝   ██║   ║██████║
-╚═════╝    ╚═╝   ╚══════╝(wx:z-poemon)OVO
+╚═════╝    ╚═╝   ╚══════╝(wx:zhm19334637080)OVO
 `;
     let content = `
 誰もが信じ崇めてる

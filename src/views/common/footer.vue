@@ -6,7 +6,7 @@
           class="icon_link"
           target="_blank"
           rel="noopener"
-          href="https://www.blog.zjh2002.icu"
+          href="https://zhi-blog.inter-trade.top/"
           title="个人主页"
         >
           <i class="iconfont icon-zhinanzhen"></i>
@@ -31,7 +31,9 @@
         </a>
         <a
           class="icon_link"
-          href="https://blog.csdn.net/qq_53461589?spm=1010.2135.3001.5421"
+          target="_blank"
+          rel="noopener"
+          href="https://blog.csdn.net/2301_79927906?type=blog"
           title="CSDN主页"
           data-pjax-state=""
         >
@@ -49,16 +51,14 @@
           class="icon_link"
           target="_blank"
           rel="noopener"
-          href="https://github.com/monkey-papa/POEMON-BLOG"
+          href="https://github.com/zhm12305"
           title="Github主页"
         >
           <i class="iconfont icon-github"></i>
         </a>
         <a
           class="icon_link"
-          target="_blank"
-          rel="noopener"
-          href="https://www.bilibili.com/video/BV1nh4y1m7CV/?spm_id_from=333.999.0.0"
+          href="javascript:;"
           title="哔哩哔哩主页"
         >
           <i class="iconfont icon-wf_Bzhan"></i>
@@ -89,31 +89,31 @@
         <div class="footer-links">
           <a
             class="footer-item"
-            href="https://www.blog.zjh2002.icu/#/tools"
+            href="https://zhi-blog.inter-trade.top/#/tools"
             data-pjax-state=""
             >藏宝阁</a
           >
           <a
             class="footer-item"
-            href="https://www.blog.zjh2002.icu/#/friend"
+            href="https://zhi-blog.inter-trade.top/#/friend"
             data-pjax-state=""
             >友链</a
           >
           <a
             class="footer-item"
-            href="https://www.blog.zjh2002.icu/#/message"
+            href="https://zhi-blog.inter-trade.top/#/message"
             data-pjax-state=""
             >留言厅</a
           >
           <a
             class="footer-item"
-            href="https://www.blog.zjh2002.icu/#/travel "
+            href="https://zhi-blog.inter-trade.top/#/travel "
             data-pjax-state=""
             >个人相册</a
           >
           <a
             class="footer-item"
-            href="https://www.blog.zjh2002.icu/#/funny"
+            href="https://zhi-blog.inter-trade.top/#/funny"
             data-pjax-state=""
             >幻音坊</a
           >
@@ -124,37 +124,37 @@
         <div class="footer-links">
           <a
             class="footer-item"
-            href="https://www.blog.zjh2002.icu/#/sort?sortId=1"
+            href="https://zhi-blog.inter-trade.top/#/sort?sortId=1"
             data-pjax-state=""
             >学习笔记</a
           >
           <a
             class="footer-item"
-            href="https://www.blog.zjh2002.icu/#/sort?sortId=6"
+            href="https://zhi-blog.inter-trade.top/#/sort?sortId=6"
             data-pjax-state=""
             >我的项目</a
           >
           <a
             class="footer-item"
-            href="https://www.blog.zjh2002.icu/#/sort?sortId=3"
+            href="https://zhi-blog.inter-trade.top/#/sort?sortId=3"
             data-pjax-state=""
             >游戏</a
           >
           <a
             class="footer-item"
-            href="https://www.blog.zjh2002.icu/#/sort?sortId=4"
+            href="https://zhi-blog.inter-trade.top/#/sort?sortId=4"
             data-pjax-state=""
             >动漫</a
           >
           <a
             class="footer-item"
-            href="https://www.blog.zjh2002.icu/#/sort?sortId=7"
+            href="https://zhi-blog.inter-trade.top/#/sort?sortId=7"
             data-pjax-state=""
             >随想</a
           >
           <a
             class="footer-item"
-            href="https://www.blog.zjh2002.icu/#/sort"
+            href="https://zhi-blog.inter-trade.top/#/sort"
             data-pjax-state=""
             >查看全部</a
           >
@@ -183,7 +183,7 @@
           >
           <a
             class="footer-item"
-            href="https://www.blog.zjh2002.icu/#/friend"
+            href="https://zhi-blog.inter-trade.top/#/friend"
             data-pjax-state=""
             >查看更多</a
           >
@@ -198,7 +198,7 @@
             <a
               target="_blank"
               rel="noopener"
-              href="https://www.blog.zjh2002.icu"
+              href="https://zhi-blog.inter-trade.top"
               title="点击访问羌笛萧萧安然的主页"
               style="margin-left: 5px"
               >羌笛萧萧安然
@@ -279,7 +279,7 @@ export default {
   },
   methods: {
     copy(val) {
-      const number = val === 1 ? "1816298537" : "z-poemon";
+      const number = val === 1 ? "1782924062" : "zhm19334637080";
       const text = val === 1 ? "QQ" : "微信";
       const aux = document.createElement("input");
       aux.setAttribute("value", number);

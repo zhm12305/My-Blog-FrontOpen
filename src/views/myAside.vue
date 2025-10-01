@@ -43,21 +43,20 @@
       </a>
       <div class="my-link a-svg">
         <a
-          href="https://blog.csdn.net/qq_53461589?spm=1038.2274.3001.5343"
+          href="https://blog.csdn.net/2301_79927906?type=blog"
           target="_blank"
         >
           <i class="iconfont icon-csdn"></i>
         </a>
         <a
-          href="https://www.bilibili.com/video/BV1nh4y1m7CV/?spm_id_from=333.999.0.0"
-          target="_blank"
+          href="javascript:;"
         >
           <i class="iconfont icon-wf_Bzhan"></i>
         </a>
-        <a href="https://github.com/monkey-papa/POEMON-BLOG" target="_blank">
+        <a href="https://github.com/zhm12305" target="_blank">
           <i class="iconfont icon-github"></i>
         </a>
-        <a href="https://www.zjh2002.icu">
+        <a href="https://zhi-blog.inter-trade.top">
           <i class="iconfont icon-wangyiyunyinle"></i>
         </a>
       </div>
