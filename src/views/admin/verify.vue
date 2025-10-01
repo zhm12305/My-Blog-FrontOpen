@@ -37,12 +37,12 @@
           type="password"
           class="inputs pwd"
           v-model="password"
-          @keyup.enter="login()"
+          @keyup.enter.prevent="login()"
           placeholder="请输入密码"
         />
         <proButton
           :info="'提交'"
-          @click.native="login()"
+          @click.native.prevent="login()"
           :before="$constant.before_color_1"
           :after="$constant.after_color_1"
         >
@@ -59,17 +59,20 @@ export default {
   },
   data() {
     return {
-      redirect: this.$route.query.redirect,
+      redirect: this.$route.query.redirect || '/backendMain',
       account: "",
       password: "",
     };
   },
   methods: {
     login() {
+      console.log("[后台登录] 开始登录流程");
+      
       if (
         this.$common.isEmpty(this.account) ||
         this.$common.isEmpty(this.password)
       ) {
+        console.log("[后台登录] 账号或密码为空");
         this.$notify({
           type: "error",
           title: "可恶🤬",
@@ -79,32 +82,101 @@ export default {
         });
         return;
       }
+      
+      console.log("[后台登录] 准备加密密码");
+      let encryptedPassword;
+      try {
+        encryptedPassword = this.$common.encrypt(this.password.trim());
+        console.log("[后台登录] 密码加密成功");
+      } catch (error) {
+        console.error("[后台登录] 密码加密失败:", error);
+        this.$notify({
+          type: "error",
+          title: "可恶🤬",
+          message: "密码加密失败，请刷新页面重试！",
+          position: "top-left",
+          offset: 50,
+        });
+        return;
+      }
+      
       let user = {
         account: this.account.trim(),
-        password: this.$common.encrypt(this.password.trim()),
+        password: encryptedPassword,
         isAdmin: true,
       };
+      
+      console.log("[后台登录] 发送登录请求:", {
+        account: user.account,
+        isAdmin: user.isAdmin,
+        url: this.$constant.baseURL + "/user/login/"
+      });
+      
       this.$http
         .post(this.$constant.baseURL + "/user/login/", user, true, false)
         .then((res) => {
+          console.log("[后台登录] 收到响应:", res);
+          
           if (!this.$common.isEmpty(res.data)) {
+            console.log("[后台登录] 登录成功，用户信息:", {
+              username: res.data.username,
+              userType: res.data.userType,
+              id: res.data.id
+            });
+            
             // 清除可能存在的其他登录状态
             this.$store.commit("loadCurrentUser", {});
             localStorage.removeItem("userToken");
             // 设置新的后台管理状态
             localStorage.setItem("adminToken", res.data.accessToken);
             this.$store.commit("loadCurrentAdmin", res.data);
+            
+            console.log("[后台登录] 准备跳转到:", this.redirect);
+            
             this.account = "";
             this.password = "";
-            this.$router.push({ path: this.redirect });
+            
+            this.$notify({
+              type: "success",
+              title: "成功 🎉",
+              message: `欢迎回来，${res.data.username}！`,
+              position: "top-left",
+              offset: 50,
+            });
+            
+            setTimeout(() => {
+              this.$router.push({ path: this.redirect });
+            }, 500);
+          } else {
+            console.warn("[后台登录] 响应数据为空:", res);
+            this.$notify({
+              type: "error",
+              title: "可恶🤬",
+              message: "登录响应异常，请重试！",
+              position: "top-left",
+              offset: 50,
+            });
           }
         })
         .catch((error) => {
+          console.error("[后台登录] 登录失败:", error);
+          console.error("[后台登录] 错误详情:", {
+            message: error.message,
+            response: error.response,
+            stack: error.stack
+          });
+          
+          let errorMessage = "账号异常，可能由于您不是管理员或者是账号密码错误，请重新输入！";
+          
+          // 尝试解析后端返回的具体错误信息
+          if (error.message) {
+            errorMessage = error.message;
+          }
+          
           this.$notify({
             type: "error",
             title: "可恶🤬",
-            message:
-              "账号异常，可能由于您不是管理员或者是账号密码错误，请重新输入！",
+            message: errorMessage,
             position: "top-left",
             offset: 50,
           });
