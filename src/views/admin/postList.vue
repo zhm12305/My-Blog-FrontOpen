@@ -242,18 +242,21 @@ export default {
   },
   methods: {
     handleToAddArticle() {
+      // 直接跳转到文章编辑页面，无需强制配置七牛云
+      this.$router.push({ path: "/postEdit" });
+      
+      // 如果未配置七牛云，给出友好提示
       if (
-        this.$store.state.currentAdmin.qiniuAccessKey &&
-        this.$store.state.currentAdmin.qiniuBucketName &&
-        this.$store.state.currentAdmin.qiniuDomain &&
-        this.$store.state.currentAdmin.qiniuSecretKey
+        !this.$store.state.currentAdmin.qiniuAccessKey ||
+        !this.$store.state.currentAdmin.qiniuBucketName ||
+        !this.$store.state.currentAdmin.qiniuDomain ||
+        !this.$store.state.currentAdmin.qiniuSecretKey
       ) {
-        this.$router.push({ path: "/postEdit" });
-      } else {
         this.$notify({
-          type: "error",
-          title: "可恶🤬",
-          message: "请去前台个人中心完善七牛云配置！",
+          type: "info",
+          title: "温馨提示 💡",
+          message: "建议使用路过图床（https://imgse.com/）上传图片，无需配置七牛云！",
+          duration: 4000,
           position: "top-left",
           offset: 50,
         });
