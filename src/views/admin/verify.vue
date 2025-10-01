@@ -187,12 +187,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:root {
-  font-size: 15px;
-}
-body {
+.content {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
   margin: 0;
-  min-height: 100vh;
   background-color: #abc6f8;
   background-image: radial-gradient(
       closest-side,
@@ -209,6 +210,10 @@ body {
     -30vmax -10vmax, 50vmax 50vmax;
   background-repeat: no-repeat;
   animation: 10s movement linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
   &::after {
     content: "";
     display: block;
@@ -219,194 +224,152 @@ body {
     left: 0;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    z-index: 0;
   }
 }
-.content {
-  width: 90vw;
-  height: 90vh;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+
+.content > div {
+  position: relative;
   z-index: 1;
-  border-radius: 30px;
+}
+
+.content > .left,
+.content > .right {
+  height: 90vh;
+}
+
+.content > .left {
+  width: 50%;
+  position: relative;
+}
+
+.content > .right {
+  width: 50%;
   background: rgba(255, 255, 255, 0.6);
+  border-radius: 0 30px 30px 0;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  display: flex;
-  .left {
-    flex: 1;
-    position: relative;
-    .sphere {
-      position: absolute;
-      left: 30%;
-      width: 90%;
-      z-index: 1;
-      animation: sphereAnimation 2s;
-      animation-fill-mode: forwards;
-      animation-timing-function: ease;
-    }
-    .people {
-      position: absolute;
-      left: -50%;
-      top: 20%;
-      width: 70%;
-      z-index: 2;
-    }
-    .p-animtion {
-      animation: peopleAnimation 2s;
-      animation-fill-mode: forwards;
-      animation-timing-function: ease;
-    }
-    .p-other-animtion {
-      animation-name: pOtherAnimation;
-      animation-direction: alternate;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      animation-duration: 3s;
-    }
-    .s-animtion {
-      animation: sphereAnimation 2s;
-      animation-fill-mode: forwards;
-      animation-timing-function: ease;
-    }
-    .s-other-animtion {
-      animation-name: sOtherAnimation;
-      animation-direction: alternate;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      animation-duration: 3s;
+}
+
+.left {
+  flex: 1;
+  position: relative;
+  .sphere {
+    position: absolute;
+    left: 30%;
+    width: 90%;
+    z-index: 1;
+    animation: sphereAnimation 2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+  }
+  .people {
+    position: absolute;
+    left: -50%;
+    top: 20%;
+    width: 70%;
+    z-index: 2;
+  }
+  .p-animtion {
+    animation: peopleAnimation 2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+  }
+  .p-other-animtion {
+    animation-name: pOtherAnimation;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 3s;
+  }
+  .s-animtion {
+    animation: sphereAnimation 2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+  }
+  .s-other-animtion {
+    animation-name: sOtherAnimation;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 3s;
+  }
+}
+
+.right {
+  flex: 1;
+  position: relative;
+  z-index: 12;
+  .top {
+    width: 80%;
+    margin-left: 38px;
+    color: rgb(51, 52, 124);
+    font-size: 20px;
+    font-weight: 600;
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    transform: translate(-50%, 0);
+    .top-item {
+      color: var(--blue2);
+      float: left;
+      width: 150px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      margin-right: 10px;
+      transition: 0.5s;
+      border-radius: 50px;
+      border: 2px solid var(--red);
+      cursor: pointer;
+      &:hover {
+        border: 0;
+        background-color: #fff;
+        border-radius: 50px;
+        box-shadow: -20px 10px 32px 1px rgba(182, 183, 185, 0.57);
+      }
     }
   }
-  .right {
-    flex: 1;
-    position: relative;
-    z-index: 12;
-    .top {
-      width: 80%;
-      margin-left: 38px;
-      color: rgb(51, 52, 124);
-      font-size: 20px;
-      font-weight: 600;
-      position: absolute;
-      left: 50%;
-      top: 5%;
-      transform: translate(-50%, 0);
-      .top-item {
-        color: var(--blue2);
-        float: left;
-        width: 150px;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        margin-right: 10px;
-        transition: 0.5s;
-        border-radius: 50px;
-        border: 2px solid var(--red);
-        &:hover {
-          border: 0;
-          background-color: #fff;
-          border-radius: 50px;
-          box-shadow: -20px 10px 32px 1px rgba(182, 183, 185, 0.57);
-        }
-      }
+  .form-wrappepr {
+    width: 60%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: right;
+    h1 {
+      float: left;
+      margin: 30px 0;
     }
-    .form-wrappepr {
-      width: 60%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      text-align: right;
-      h1 {
-        float: left;
-        margin: 30px 0;
-      }
-      .inputs {
-        display: block;
-        width: 100%;
-        height: 70px;
-        margin: 30px 0;
-        border-radius: 10px;
-        border: 0;
-        background-color: rgb(210, 223, 237);
-        color: rgb(80, 82, 84);
-        outline: none;
-        padding: 20px;
-        box-sizing: border-box;
-        font-size: 20px;
-      }
-      .tips {
-        display: block;
-        margin-top: -15px;
-        color: rgb(160, 170, 182);
-      }
-      button {
-        width: 100%;
-        height: 50px;
-        background-color: rgb(68, 96, 241);
-        border-radius: 10px;
-        font-size: 15px;
-        color: #fff;
-        border: 0;
-        font-weight: 600;
-        margin: 30px 0;
-        box-shadow: -20px 28px 42px 0 rgba(62, 145, 255, 0.37);
-      }
-      .other-login .divider {
-        width: 100%;
-        margin: 20px 0;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .line {
-          display: inline-block;
-          max-width: 35%;
-          width: 35%;
-          flex: 1;
-          height: 1px;
-          background-color: rgb(162, 172, 185);
-        }
-        .divider-text {
-          vertical-align: middle;
-          margin: 0px 20px;
-          display: inline-block;
-          width: 150px;
-          color: rgb(162, 172, 185);
-          white-space: normal;
-        }
-      }
-      .other-login .other-login-wrapper {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .other-login-item {
-          width: 70px;
-          padding: 10px;
-          text-align: center;
-          border-radius: 10px;
-          font-weight: 600;
-          color: rgb(51, 49, 116);
-          margin: 0 10px;
-          transition: 0.4s;
-          img {
-            width: 40px;
-            height: 40px;
-            vertical-align: middle;
-          }
-          span {
-            vertical-align: middle;
-          }
-          &:hover {
-            width: 80px;
-            height: 50%;
-            background-color: #fff;
-            border: 0;
-            box-shadow: -20px 10px 32px 1px rgba(182, 183, 185, 0.37);
-          }
-        }
-      }
+    .inputs {
+      display: block;
+      width: 100%;
+      height: 70px;
+      margin: 30px 0;
+      border-radius: 10px;
+      border: 0;
+      background-color: rgb(210, 223, 237);
+      color: rgb(80, 82, 84);
+      outline: none;
+      padding: 20px;
+      box-sizing: border-box;
+      font-size: 20px;
+    }
+    .tips {
+      display: block;
+      margin-top: -15px;
+      color: rgb(160, 170, 182);
+    }
+    button {
+      width: 100%;
+      height: 50px;
+      background-color: rgb(68, 96, 241);
+      border-radius: 10px;
+      font-size: 15px;
+      color: #fff;
+      border: 0;
+      font-weight: 600;
+      margin: 30px 0;
+      box-shadow: -20px 28px 42px 0 rgba(62, 145, 255, 0.37);
     }
   }
 }

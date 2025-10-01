@@ -5,7 +5,7 @@
 :root {
   --background: rgba(255, 255, 255, 0.4);
   --background1: rgba(255, 255, 255, 0.4);
-  --favoriteBg: #f7f9fe;
+  --favoriteBg: #f7f9fe;  /* 后台背景色：浅蓝白 - 可改为其他颜色，如 #ffffff(纯白)、#f0f0f0(浅灰)、#e8f4f8(浅青) */
   --fontColor: #363636;
   --borderColor: #21232a;
   --borderHoverColor: rgba(110, 110, 110, 0.4);
