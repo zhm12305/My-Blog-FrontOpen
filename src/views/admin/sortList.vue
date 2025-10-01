@@ -92,9 +92,16 @@
       </el-table-column>
     </el-table>
     <!-- 标签弹窗 -->
-    <el-dialog width="80%" title="标签" :visible.sync="dialogTableVisible">
+    <el-dialog 
+      width="80%" 
+      title="标签" 
+      :visible.sync="dialogTableVisible"
+      :append-to-body="true"
+      :close-on-click-modal="true"
+      center
+    >
       <el-table
-        v-if="!$common.isEmpty(sort)"
+        v-if="!$common.isEmpty(sort) && !$common.isEmpty(sort.labels)"
         :data="sort.labels"
         border
         class="table"
@@ -145,6 +152,12 @@
           </template>
         </el-table-column>
       </el-table>
+      <div v-if="$common.isEmpty(sort) || $common.isEmpty(sort.labels)" style="text-align: center; padding: 40px; color: var(--fontColor);">
+        暂无标签数据
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogTableVisible = false">关 闭</el-button>
+      </span>
     </el-dialog>
     <!-- 分类弹窗 -->
     <el-dialog
