@@ -225,8 +225,10 @@ export default {
     background-size: contain;
     color: var(--red1);
     transition: all 0.3s ease;
+    border: 1px solid var(--gray1);
     &:hover {
       color: var(--red);
+      border-color: var(--gray4);
     }
   }
 }
