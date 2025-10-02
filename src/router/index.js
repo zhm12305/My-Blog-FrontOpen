@@ -234,7 +234,7 @@ router.afterEach((to, from) => {
       store.commit("SET_SHOW_SMOKE_EFFECT", false);
       store.commit("SET_SHOWLOADING", false);
       store.commit("SET_FIRST_MAIN_PAGE_VISIT", false);
-    }, 3000);
+    }, 2500);
   } else {
     // 不显示烟雾效果，2.5秒后关闭加载动画
     setTimeout(() => {
