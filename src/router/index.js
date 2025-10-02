@@ -186,6 +186,9 @@ router.beforeEach((to, from, next) => {
   // 每次跳转都显示加载动画
   store.commit("SET_SHOWLOADING", true);
 
+  // 重置烟雾效果状态，确保跳转时不显示烟雾效果
+  store.commit("SET_SHOW_SMOKE_EFFECT", false);
+
   // 每次跳转都显示普通加载动画
   // 烟雾消散效果的控制逻辑在 afterEach 中处理
 
@@ -229,8 +232,9 @@ router.afterEach((to) => {
   setTimeout(() => {
     store.commit("SET_SHOWLOADING", false);
 
-    // 只在主页面且首次访问时显示烟雾消散效果
-    if (to.path === '/' && store.state.isFirstMainPageVisit) {
+    // 只在刷新主页面时显示烟雾消散效果（非跳转访问）
+    // 检查：from.name === null 表示刷新或直接访问，from.name !== null 表示跳转
+    if (to.path === '/' && store.state.isFirstMainPageVisit && from.name === null) {
       // 延迟一点显示烟雾效果，让普通加载动画先显示
       setTimeout(() => {
         store.commit("SET_SHOW_SMOKE_EFFECT", true);
