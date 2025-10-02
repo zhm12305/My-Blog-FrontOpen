@@ -182,10 +182,17 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // 每次切换页面时，调用进度条
   NProgress.start();
-  
+
   // 每次跳转都显示加载动画
   store.commit("SET_SHOWLOADING", true);
-  
+
+  // 只在访问主页面时显示烟雾消散效果
+  if (to.path === '/') {
+    store.commit("SET_SHOW_SMOKE_EFFECT", true);
+  } else {
+    store.commit("SET_SHOW_SMOKE_EFFECT", false);
+  }
+
   // 后台页面跳转的判断
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (
@@ -220,19 +227,11 @@ router.afterEach((to) => {
   ) {
     setTimeout(() => {
       store.commit("SET_SHOWLOADING", false);
-      // 首次访问完成后，标记为已访问
-      if (store.state.isFirstVisit) {
-        store.commit("SET_FIRST_VISIT", false);
-      }
     }, 500);
     return;
   }
   setTimeout(() => {
     store.commit("SET_SHOWLOADING", false);
-    // 首次访问完成后，标记为已访问
-    if (store.state.isFirstVisit) {
-      store.commit("SET_FIRST_VISIT", false);
-    }
   }, 2500);
 });
 

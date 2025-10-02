@@ -30,10 +30,10 @@
     <!-- 回到顶部 -->
     <backToTop v-if="$route.path !== '/verifyLogin'"></backToTop>
     <div v-if="$store.state.isShowLoading" class="loading">
-      <!-- 烟雾消散文字效果 - 只在首次访问时显示 -->
-      <smokeLoading 
-        v-if="$store.state.isFirstVisit"
-        :loadingText="$store.state.webInfo.webName || '羌笛萧萧安然'" 
+      <!-- 烟雾消散文字效果 - 只在主页面显示 -->
+      <smokeLoading
+        v-if="$route.path === '/' && $store.state.isShowSmokeEffect"
+        :loadingText="$store.state.webInfo.webName || '羌笛萧萧安然'"
       />
       <!-- 普通加载动画 - 每次都显示 -->
       <div class="author-box">
