@@ -553,7 +553,7 @@ export default {
 .about-statistic {
   min-height: 380px;
   width: 39%;
-  background: url(https://bu.dusays.com/2022/11/18/63765da00f149.png) no-repeat
+  background: url(https://s21.ax1x.com/2025/10/02/pVTaXvQ.jpg) no-repeat
     top;
   background-size: cover;
   color: var(--favoriteBg);
@@ -716,7 +716,7 @@ export default {
   line-height: 1.1;
   display: flex;
   color: var(--favoriteBg);
-  background: url(https://www.qiniuyun.monkey-papa.icu/avatar/about1.jpg)
+  background: url(https://s21.ax1x.com/2025/10/02/pVTaxDs.jpg)
     no-repeat;
   background-size: cover;
   align-items: flex-start;
@@ -730,7 +730,7 @@ export default {
   font-family: STZhongsong, "Microsoft YaHei";
 }
 .author-content-item.myphoto {
-  background: url(https://www.qiniuyun.monkey-papa.icu/avatar/about2.webp)
+  background: url(https://s21.ax1x.com/2025/10/02/pVTazbn.jpg)
     no-repeat;
   height: 60%;
   background-size: 100%;
@@ -870,7 +870,7 @@ sup {
   transition-delay: 0.1s;
 }
 .author-content-item.game-lol {
-  background: url(https://www.qiniuyun.monkey-papa.icu/avatar/%E9%95%9C.png)
+  background: url(https://s21.ax1x.com/2025/10/02/pVTdC5V.jpg)
     no-repeat top;
   background-size: cover;
   min-height: 300px;
@@ -906,7 +906,7 @@ sup {
 .author-content-item.game-wolf {
   border: 1px;
   width: 56%;
-  background: url(https://www.qiniuyun.monkey-papa.icu/avatar/%E8%A1%8C%E5%B0%B8%E8%B5%B0%E8%82%89.jpg)
+  background: url(https://s21.ax1x.com/2025/10/02/pVTdiCT.jpg)
     no-repeat top;
   background-size: cover;
   min-height: 300px;
@@ -923,7 +923,7 @@ sup {
 }
 .author-content-item.like-music {
   border: 1px;
-  background: url(https://www.qiniuyun.monkey-papa.icu/avatar/Jay.webp)
+  background: url(https://s21.ax1x.com/2025/10/02/pVTavuj.jpg)
     no-repeat top;
   background-size: cover;
   min-height: 400px;

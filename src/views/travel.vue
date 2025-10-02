@@ -41,7 +41,7 @@
           v-if="!$common.mobile() && !mobile"
           class="shadow-box travel-header-right"
           style="
-            background-image: url(https://www.qiniuyun.monkey-papa.icu/gif/%E7%BA%A2%E5%AD%A9%E5%84%BF.gif);
+            background-image: url(https://s21.ax1x.com/2025/10/02/pVTdC5V.jpg);
           "
         >
           <div class="card-content">
