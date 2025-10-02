@@ -30,6 +30,8 @@
     <!-- 回到顶部 -->
     <backToTop v-if="$route.path !== '/verifyLogin'"></backToTop>
     <div v-if="$store.state.isShowLoading" class="loading">
+      <!-- 烟雾消散文字效果 -->
+      <smokeLoading :loadingText="$store.state.webInfo.webName || '羌笛萧萧安然'" />
       <div class="author-box">
         <span></span>
         <div class="author-img">
@@ -91,12 +93,14 @@
 const myFooter = () => import("./views/common/footer.vue");
 const aplayer = () => import("./views/common/aplayer.vue");
 const backToTop = () => import("./views/common/backToTop.vue");
+const smokeLoading = () => import("./views/common/smokeLoading.vue");
 export default {
   name: "App",
   components: {
     aplayer,
     myFooter,
     backToTop,
+    smokeLoading,
   },
   data() {
     return {
