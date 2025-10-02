@@ -41,7 +41,7 @@
           v-if="!$common.mobile() && !mobile"
           class="shadow-box travel-header-right"
           style="
-            background-image: url(https://s21.ax1x.com/2025/10/02/pVTdC5V.jpg);
+            background-image: url(https://s21.ax1x.com/2025/10/02/pVTdpEq.jpg);
           "
         >
           <div class="card-content">

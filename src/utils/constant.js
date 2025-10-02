@@ -30,7 +30,7 @@ export default {
   // 路过图床（推荐）
   imgseUrl: "https://imgse.com/", // 路过图床首页
   //视频地址
-  favoriteVideo: "https://s21.ax1x.com/2025/10/02/pVTd9U0.jpg",
+  favoriteVideo: "https://s21.ax1x.com/2025/10/02/pVTdC5V.jpg",
   //按钮颜色
   before_color_1: "var(--blue13)",
   after_color_1: "linear-gradient(45deg, var(--red), var(--purple1))",
