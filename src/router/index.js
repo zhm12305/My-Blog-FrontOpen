@@ -182,16 +182,11 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // 每次切换页面时，调用进度条
   NProgress.start();
-
-  // 每次跳转都显示加载动画
   store.commit("SET_SHOWLOADING", true);
-
-  // 重置烟雾效果状态，确保跳转时不显示烟雾效果
+  
+  // 重置烟雾效果，避免跳转时显示
   store.commit("SET_SHOW_SMOKE_EFFECT", false);
-
-  // 每次跳转都显示普通加载动画
-  // 烟雾消散效果的控制逻辑在 afterEach 中处理
-
+  
   // 后台页面跳转的判断
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (
@@ -210,7 +205,7 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-router.afterEach((to) => {
+router.afterEach((to, from) => {
   const title = to.fullPath;
   
   // 检查用户登录状态并显示访客提示
@@ -218,7 +213,6 @@ router.afterEach((to) => {
     checkAndNotifyGuestStatus(to);
   }, 1000); // 延迟1秒，确保页面加载完成
   
-  // 关闭加载动画
   if (
     to.fullPath == "/about" ||
     to.fullPath == "/user" ||
@@ -229,18 +223,23 @@ router.afterEach((to) => {
     }, 500);
     return;
   }
+  
   setTimeout(() => {
     store.commit("SET_SHOWLOADING", false);
-
-    // 只在刷新主页面时显示烟雾消散效果（非跳转访问）
-    // 检查：from.name === null 表示刷新或直接访问，from.name !== null 表示跳转
-    if (to.path === '/' && store.state.isFirstMainPageVisit && from.name === null) {
-      // 延迟一点显示烟雾效果，让普通加载动画先显示
+    
+    // 只在以下情况显示烟雾消散效果：
+    // 1. 目标是主页面 (to.path === '/')
+    // 2. 是首次访问主页面 (isFirstMainPageVisit === true)
+    // 3. 不是从其他页面跳转来的 (from.name === null 或 from.path === '/')
+    //    - from.name === null: 直接访问或刷新
+    //    - from.path === '/': 在主页面内刷新
+    if (to.path === '/' && store.state.isFirstMainPageVisit && (from.name === null || from.path === '/')) {
+      // 延迟300ms显示烟雾效果，让普通加载动画先显示
       setTimeout(() => {
         store.commit("SET_SHOW_SMOKE_EFFECT", true);
       }, 300);
-
-      // 烟雾效果显示后，标记为已访问
+      
+      // 2500ms后标记为已访问，隐藏烟雾效果
       setTimeout(() => {
         store.commit("SET_FIRST_MAIN_PAGE_VISIT", false);
       }, 2500);
