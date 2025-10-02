@@ -39,9 +39,6 @@
         <div
           v-if="!$common.mobile() && !mobile"
           class="shadow-box travel-header-right"
-          style="
-            background-image: url(https://s21.ax1x.com/2025/10/02/pVTdpEq.jpg);
-          "
         >
           <div class="card-content">
             <div class="author-content-item-tips" style="color: var(--red1);">┗|｀O′|┛ 嗷～～</div>
@@ -221,10 +218,11 @@ export default {
     color: var(--red);
     user-select: none;
     position: relative;
-    background: linear-gradient(135deg, var(--blue1), var(--blue5));
+    background: linear-gradient(135deg, var(--blue1), var(--blue5)), 
+                url(https://s21.ax1x.com/2025/10/02/pVTdpEq.jpg);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
+    background-size: cover, contain;
     color: var(--red1);
     transition: all 0.3s ease;
     &:hover {
