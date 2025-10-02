@@ -44,8 +44,8 @@
           "
         >
           <div class="card-content">
-            <div class="author-content-item-tips" style="color: var(--blue1);">┗|｀O′|┛ 嗷～～</div>
-            <span class="author-content-item-title" style="color: var(--blue2);">cat</span>
+            <div class="author-content-item-tips" style="color: var(--red1);">┗|｀O′|┛ 嗷～～</div>
+            <span class="author-content-item-title" style="color: var(--red);">cat</span>
             <div class="banner-button-group">
               <a href="https://www.zjh2002.icu" class="banner-button">
                 <span class="banner-button-text">🎻 秘密基地</span>
@@ -221,16 +221,28 @@ export default {
     color: var(--red);
     user-select: none;
     position: relative;
-    background-color: var(--brown);
+    background: linear-gradient(135deg, var(--blue1), var(--blue5));
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
     color: var(--red1);
     transition: all 0.3s ease;
-    border: 1px solid var(--gray1);
+    border: 1px solid var(--blue1);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     &:hover {
       color: var(--red);
-      border-color: var(--gray4);
+      border-color: var(--blue);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(37, 99, 235, 0.4));
+      z-index: 1;
     }
   }
 }
@@ -307,7 +319,7 @@ export default {
   right: 0.5rem;
 }
 .banner-button {
-  color: var(--blue1);
+  color: var(--red1);
   height: 2rem;
   width: 6rem;
   border-radius: 1.2rem;
@@ -318,11 +330,11 @@ export default {
   text-decoration: none;
   outline: none;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
   &:hover {
-    color: var(--favoriteBg);
-    background: linear-gradient(135deg, var(--blue1), var(--blue5));
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+    color: var(--red);
+    background: var(--favoriteBg);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.8);
     transform: translateY(-2px);
   }
 }
