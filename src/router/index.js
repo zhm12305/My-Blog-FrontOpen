@@ -179,10 +179,19 @@ const router = new VueRouter({
   },
 });
 
+// 标记是否是第一次访问（刷新页面会重置）
+let isFirstVisit = true;
+
 router.beforeEach((to, from, next) => {
   // 每次切换页面时，调用进度条
   NProgress.start();
-  store.commit("SET_SHOWLOADING", true);
+  
+  // 只在第一次访问时显示加载动画
+  if (isFirstVisit) {
+    store.commit("SET_SHOWLOADING", true);
+    isFirstVisit = false; // 标记为已访问
+  }
+  
   // 后台页面跳转的判断
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (
@@ -209,19 +218,22 @@ router.afterEach((to) => {
     checkAndNotifyGuestStatus(to);
   }, 1000); // 延迟1秒，确保页面加载完成
   
-  if (
-    to.fullPath == "/about" ||
-    to.fullPath == "/user" ||
-    title.indexOf("/verifyLogin?redirect") != -1
-  ) {
+  // 只在首次访问时才需要关闭加载动画
+  if (store.state.isShowLoading) {
+    if (
+      to.fullPath == "/about" ||
+      to.fullPath == "/user" ||
+      title.indexOf("/verifyLogin?redirect") != -1
+    ) {
+      setTimeout(() => {
+        store.commit("SET_SHOWLOADING", false);
+      }, 500);
+      return;
+    }
     setTimeout(() => {
       store.commit("SET_SHOWLOADING", false);
-    }, 500);
-    return;
+    }, 2500);
   }
-  setTimeout(() => {
-    store.commit("SET_SHOWLOADING", false);
-  }, 2500);
 });
 
 // 检查并提示访客状态的函数
