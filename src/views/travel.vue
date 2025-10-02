@@ -218,11 +218,11 @@ export default {
     color: var(--red);
     user-select: none;
     position: relative;
-    background: linear-gradient(135deg, var(--blue1), var(--blue5)), 
-                url(https://s21.ax1x.com/2025/10/02/pVTdpEq.jpg);
+    background-color: #3b82f6;
+    background-image: url(https://s21.ax1x.com/2025/10/02/pVTdpEq.jpg);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover, contain;
+    background-size: contain;
     color: var(--red1);
     transition: all 0.3s ease;
     &:hover {
