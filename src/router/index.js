@@ -184,9 +184,6 @@ router.beforeEach((to, from, next) => {
   NProgress.start();
   store.commit("SET_SHOWLOADING", true);
   
-  // 重置烟雾效果，避免跳转时显示
-  store.commit("SET_SHOW_SMOKE_EFFECT", false);
-  
   // 后台页面跳转的判断
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (
@@ -239,10 +236,14 @@ router.afterEach((to, from) => {
         store.commit("SET_SHOW_SMOKE_EFFECT", true);
       }, 300);
       
-      // 2500ms后标记为已访问，隐藏烟雾效果
+      // 2800ms后隐藏烟雾效果和标记已访问
       setTimeout(() => {
+        store.commit("SET_SHOW_SMOKE_EFFECT", false);
         store.commit("SET_FIRST_MAIN_PAGE_VISIT", false);
-      }, 2500);
+      }, 2800);
+    } else {
+      // 如果不满足显示烟雾效果的条件，确保烟雾效果为false
+      store.commit("SET_SHOW_SMOKE_EFFECT", false);
     }
   }, 2500);
 });
