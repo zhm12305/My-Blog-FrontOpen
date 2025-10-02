@@ -134,6 +134,15 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       storage: window.localStorage,
+      // 排除不需要持久化的状态（刷新时需要重置的状态）
+      reducer: (state) => {
+        const stateCopy = { ...state };
+        // 删除刷新时需要重置为初始值的状态
+        delete stateCopy.isFirstMainPageVisit;
+        delete stateCopy.isShowSmokeEffect;
+        delete stateCopy.isShowLoading;
+        return stateCopy;
+      }
     }),
   ],
 });
