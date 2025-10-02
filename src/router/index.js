@@ -224,6 +224,14 @@ router.afterEach((to, from) => {
   setTimeout(() => {
     store.commit("SET_SHOWLOADING", false);
     
+    // 调试信息
+    console.log('=== 烟雾效果调试信息 ===');
+    console.log('to.path:', to.path);
+    console.log('from.name:', from.name);
+    console.log('from.path:', from.path);
+    console.log('isFirstMainPageVisit:', store.state.isFirstMainPageVisit);
+    console.log('isShowSmokeEffect:', store.state.isShowSmokeEffect);
+    
     // 只在以下情况显示烟雾消散效果：
     // 1. 目标是主页面 (to.path === '/')
     // 2. 是首次访问主页面 (isFirstMainPageVisit === true)
@@ -231,17 +239,26 @@ router.afterEach((to, from) => {
     //    - from.name === null: 直接访问或刷新
     //    - from.path === '/': 在主页面内刷新
     if (to.path === '/' && store.state.isFirstMainPageVisit && (from.name === null || from.path === '/')) {
+      console.log('✅ 满足烟雾效果条件，300ms后显示');
       // 延迟300ms显示烟雾效果，让普通加载动画先显示
       setTimeout(() => {
+        console.log('🌫️ 设置烟雾效果为 true');
         store.commit("SET_SHOW_SMOKE_EFFECT", true);
+        console.log('isShowSmokeEffect 当前值:', store.state.isShowSmokeEffect);
       }, 300);
       
       // 2800ms后隐藏烟雾效果和标记已访问
       setTimeout(() => {
+        console.log('🌫️ 隐藏烟雾效果');
         store.commit("SET_SHOW_SMOKE_EFFECT", false);
         store.commit("SET_FIRST_MAIN_PAGE_VISIT", false);
       }, 2800);
     } else {
+      console.log('❌ 不满足烟雾效果条件');
+      console.log('- to.path === \'/\':', to.path === '/');
+      console.log('- isFirstMainPageVisit:', store.state.isFirstMainPageVisit);
+      console.log('- from.name === null:', from.name === null);
+      console.log('- from.path === \'/\':', from.path === '/');
       // 如果不满足显示烟雾效果的条件，确保烟雾效果为false
       store.commit("SET_SHOW_SMOKE_EFFECT", false);
     }

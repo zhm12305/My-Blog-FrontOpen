@@ -44,6 +44,11 @@
       </div>
       <div class="image-dot"></div>
     </div>
+    <!-- 独立的烟雾效果层 - 用于调试 -->
+    <smokeLoading
+      v-if="$store.state.isShowSmokeEffect"
+      :loadingText="'测试烟雾效果'"
+    />
     <!-- 右键菜单部分 -->
     <ul
       v-show="visible"
