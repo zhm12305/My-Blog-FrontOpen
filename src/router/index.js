@@ -222,8 +222,6 @@ router.afterEach((to, from) => {
   }
   
   setTimeout(() => {
-    store.commit("SET_SHOWLOADING", false);
-    
     // 调试信息
     console.log('=== 烟雾效果调试信息 ===');
     console.log('to.path:', to.path);
@@ -239,28 +237,28 @@ router.afterEach((to, from) => {
     //    - from.name === null: 直接访问或刷新
     //    - from.path === '/': 在主页面内刷新
     if (to.path === '/' && store.state.isFirstMainPageVisit && (from.name === null || from.path === '/')) {
-      console.log('✅ 满足烟雾效果条件，300ms后显示');
-      // 延迟300ms显示烟雾效果，让普通加载动画先显示
-      setTimeout(() => {
-        console.log('🌫️ 设置烟雾效果为 true');
-        store.commit("SET_SHOW_SMOKE_EFFECT", true);
-        console.log('isShowSmokeEffect 当前值:', store.state.isShowSmokeEffect);
-      }, 300);
+      console.log('✅ 满足烟雾效果条件，开始显示');
       
-      // 2800ms后隐藏烟雾效果和标记已访问
+      // 立即显示烟雾效果（普通加载动画已经显示了2.5秒）
+      store.commit("SET_SHOW_SMOKE_EFFECT", true);
+      console.log('🌫️ 设置烟雾效果为 true');
+      
+      // 2500ms后隐藏烟雾效果和加载动画
       setTimeout(() => {
-        console.log('🌫️ 隐藏烟雾效果');
+        console.log('🌫️ 隐藏烟雾效果和加载动画');
         store.commit("SET_SHOW_SMOKE_EFFECT", false);
+        store.commit("SET_SHOWLOADING", false);
         store.commit("SET_FIRST_MAIN_PAGE_VISIT", false);
-      }, 2800);
+      }, 2500);
     } else {
       console.log('❌ 不满足烟雾效果条件');
       console.log('- to.path === \'/\':', to.path === '/');
       console.log('- isFirstMainPageVisit:', store.state.isFirstMainPageVisit);
       console.log('- from.name === null:', from.name === null);
       console.log('- from.path === \'/\':', from.path === '/');
-      // 如果不满足显示烟雾效果的条件，确保烟雾效果为false
+      // 如果不满足显示烟雾效果的条件，直接关闭加载动画
       store.commit("SET_SHOW_SMOKE_EFFECT", false);
+      store.commit("SET_SHOWLOADING", false);
     }
   }, 2500);
 });
