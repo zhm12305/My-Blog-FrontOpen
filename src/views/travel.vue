@@ -44,8 +44,8 @@
           "
         >
           <div class="card-content">
-            <div class="author-content-item-tips">┗|｀O′|┛ 嗷～～</div>
-            <span class="author-content-item-title">cat</span>
+            <div class="author-content-item-tips" style="color: var(--blue1);">┗|｀O′|┛ 嗷～～</div>
+            <span class="author-content-item-title" style="color: var(--blue2);">cat</span>
             <div class="banner-button-group">
               <a href="https://www.zjh2002.icu" class="banner-button">
                 <span class="banner-button-text">🎻 秘密基地</span>
@@ -307,7 +307,7 @@ export default {
   right: 0.5rem;
 }
 .banner-button {
-  color: var(--red1);
+  color: var(--blue1);
   height: 2rem;
   width: 6rem;
   border-radius: 1.2rem;
@@ -318,9 +318,12 @@ export default {
   text-decoration: none;
   outline: none;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
   &:hover {
-    color: var(--red3);
-    background: var(--themeColor);
+    color: var(--favoriteBg);
+    background: linear-gradient(135deg, var(--blue1), var(--blue5));
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+    transform: translateY(-2px);
   }
 }
 @media screen and (max-width: 1150px) {
