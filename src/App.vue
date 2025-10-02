@@ -33,7 +33,7 @@
       <!-- 烟雾消散文字效果 - 只在主页面且首次访问时显示 -->
       <smokeLoading
         v-if="$route.path === '/' && $store.state.isShowSmokeEffect"
-        :loadingText="$store.state.webInfo.webName || '羌笛萧萧安然'"
+        :loadingText="'羌笛萧萧安然'"
       />
       <!-- 普通加载动画 - 每次都显示 -->
       <div class="author-box">
@@ -44,11 +44,6 @@
       </div>
       <div class="image-dot"></div>
     </div>
-    <!-- 独立的烟雾效果层 - 用于调试 -->
-    <smokeLoading
-      v-if="$store.state.isShowSmokeEffect"
-      :loadingText="'测试烟雾效果'"
-    />
     <!-- 右键菜单部分 -->
     <ul
       v-show="visible"
