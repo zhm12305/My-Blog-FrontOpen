@@ -9,16 +9,15 @@
       ></div>
       <div class="travel-top">
         <div class="travel-header shadow-box my-animation-slide-top">
-          <!-- 顶部视频 -->
-          <video
+          <!-- 顶部背景图 -->
+          <div
             class="index-video"
-            autoplay
-            muted
-            loop
-            playsinline
-            webkit-playsinline
-            :src="$constant.favoriteVideo"
-          ></video>
+            :style="{
+              backgroundImage: 'url(' + $constant.favoriteVideo + ')',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }"
+          ></div>
           <div style="position: absolute; left: 20px; top: 20px">
             <!-- 标题 -->
             <div>
