@@ -222,14 +222,6 @@ router.afterEach((to, from) => {
   }
   
   setTimeout(() => {
-    // 调试信息
-    console.log('=== 烟雾效果调试信息 ===');
-    console.log('to.path:', to.path);
-    console.log('from.name:', from.name);
-    console.log('from.path:', from.path);
-    console.log('isFirstMainPageVisit:', store.state.isFirstMainPageVisit);
-    console.log('isShowSmokeEffect:', store.state.isShowSmokeEffect);
-    
     // 只在以下情况显示烟雾消散效果：
     // 1. 目标是主页面 (to.path === '/')
     // 2. 是首次访问主页面 (isFirstMainPageVisit === true)
@@ -237,25 +229,25 @@ router.afterEach((to, from) => {
     //    - from.name === null: 直接访问或刷新
     //    - from.path === '/': 在主页面内刷新
     if (to.path === '/' && store.state.isFirstMainPageVisit && (from.name === null || from.path === '/')) {
-      console.log('✅ 满足烟雾效果条件，开始显示');
+      console.log('✅ 显示烟雾效果');
       
-      // 立即显示烟雾效果（普通加载动画已经显示了2.5秒）
+      // 关闭普通加载动画，开始显示烟雾效果
+      store.commit("SET_SHOWLOADING", false);
       store.commit("SET_SHOW_SMOKE_EFFECT", true);
-      console.log('🌫️ 设置烟雾效果为 true');
       
-      // 2500ms后隐藏烟雾效果和加载动画
+      // 烟雾动画总时长约6.1秒：
+      // - 最后一个字符延迟：2.1s
+      // - 动画延迟：2s
+      // - 动画持续：2s
+      // 总计：2.1 + 2 + 2 = 6.1秒
+      // 等待烟雾动画完全结束后再隐藏
       setTimeout(() => {
-        console.log('🌫️ 隐藏烟雾效果和加载动画');
+        console.log('🌫️ 烟雾动画结束，隐藏效果');
         store.commit("SET_SHOW_SMOKE_EFFECT", false);
-        store.commit("SET_SHOWLOADING", false);
         store.commit("SET_FIRST_MAIN_PAGE_VISIT", false);
-      }, 2500);
+      }, 6500); // 6.5秒确保动画完整播放
     } else {
-      console.log('❌ 不满足烟雾效果条件');
-      console.log('- to.path === \'/\':', to.path === '/');
-      console.log('- isFirstMainPageVisit:', store.state.isFirstMainPageVisit);
-      console.log('- from.name === null:', from.name === null);
-      console.log('- from.path === \'/\':', from.path === '/');
+      console.log('❌ 不显示烟雾效果，直接关闭加载动画');
       // 如果不满足显示烟雾效果的条件，直接关闭加载动画
       store.commit("SET_SHOW_SMOKE_EFFECT", false);
       store.commit("SET_SHOWLOADING", false);

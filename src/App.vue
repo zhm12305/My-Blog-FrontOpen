@@ -29,13 +29,8 @@
     <aplayer></aplayer>
     <!-- 回到顶部 -->
     <backToTop v-if="$route.path !== '/verifyLogin'"></backToTop>
+    <!-- 普通加载动画 -->
     <div v-if="$store.state.isShowLoading" class="loading">
-      <!-- 烟雾消散文字效果 - 只在主页面且首次访问时显示 -->
-      <smokeLoading
-        v-if="$route.path === '/' && $store.state.isShowSmokeEffect"
-        :loadingText="'羌笛萧萧安然'"
-      />
-      <!-- 普通加载动画 - 每次都显示 -->
       <div class="author-box">
         <span></span>
         <div class="author-img">
@@ -44,6 +39,11 @@
       </div>
       <div class="image-dot"></div>
     </div>
+    <!-- 烟雾消散效果 - 独立显示，不依赖 isShowLoading -->
+    <smokeLoading
+      v-if="$route.path === '/' && $store.state.isShowSmokeEffect"
+      :loadingText="'羌笛萧萧安然'"
+    />
     <!-- 右键菜单部分 -->
     <ul
       v-show="visible"
