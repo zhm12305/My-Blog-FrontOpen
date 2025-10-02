@@ -24,7 +24,8 @@ export default new Vuex.Store({
     },
     changeBg: "url(https://zhi-blog.inter-trade.top/yinlang.jpg)",
     isShowLoading: false,
-    isShowSmokeEffect: false, // 是否显示烟雾消散效果（只在主页面）
+    isShowSmokeEffect: false, // 是否显示烟雾消散效果（只在主页面首次访问）
+    isFirstMainPageVisit: true, // 是否首次访问主页面（刷新会重置）
     top: 0,
     pageView: {},
     newArticles: [],
@@ -111,6 +112,9 @@ export default new Vuex.Store({
     },
     SET_SHOW_SMOKE_EFFECT(state, data) {
       state.isShowSmokeEffect = data;
+    },
+    SET_FIRST_MAIN_PAGE_VISIT(state, data) {
+      state.isFirstMainPageVisit = data;
     },
     topPercentage(state, top) {
       state.top = top;
