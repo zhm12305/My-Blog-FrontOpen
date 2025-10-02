@@ -24,6 +24,7 @@ export default new Vuex.Store({
     },
     changeBg: "url(https://zhi-blog.inter-trade.top/yinlang.jpg)",
     isShowLoading: false,
+    isFirstVisit: true, // 是否首次访问
     top: 0,
     pageView: {},
     newArticles: [],
@@ -107,6 +108,9 @@ export default new Vuex.Store({
     },
     SET_SHOWLOADING(state, data) {
       state.isShowLoading = data;
+    },
+    SET_FIRST_VISIT(state, data) {
+      state.isFirstVisit = data;
     },
     topPercentage(state, top) {
       state.top = top;
