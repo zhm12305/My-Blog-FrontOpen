@@ -276,23 +276,8 @@
     <div id="main-container">
       <router-view></router-view>
     </div>
-    <!-- 猫 -->
-    <div
-      href="#"
-      class="cd-top"
-      v-if="!$common.mobile()"
-      @click="toTop()"
-    ></div>
     <!-- 右下角按钮 -->
     <div class="toolButton">
-      <!-- 火箭 -->
-      <div
-        class="backTop"
-        v-if="$common.mobile() && toolButton"
-        @click="toTop()"
-      >
-        <img src="../assets/svg/rocket.svg" />
-      </div>
       <!-- 右下角切换按钮 -->
       <el-popover
         transition="el-zoom-in-top"

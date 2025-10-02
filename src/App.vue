@@ -27,8 +27,8 @@
       <myFooter></myFooter>
     </div>
     <aplayer></aplayer>
-    <!-- 滚动绳子效果 -->
-    <scrollRope></scrollRope>
+    <!-- 回到顶部 -->
+    <backToTop v-if="$route.path !== '/verifyLogin'"></backToTop>
     <div v-if="$store.state.isShowLoading" class="loading">
       <div class="author-box">
         <span></span>
@@ -90,13 +90,13 @@
 <script>
 const myFooter = () => import("./views/common/footer.vue");
 const aplayer = () => import("./views/common/aplayer.vue");
-const scrollRope = () => import("./views/common/scrollRope.vue");
+const backToTop = () => import("./views/common/backToTop.vue");
 export default {
   name: "App",
   components: {
     aplayer,
     myFooter,
-    scrollRope,
+    backToTop,
   },
   data() {
     return {
