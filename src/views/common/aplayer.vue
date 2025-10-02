@@ -16,9 +16,16 @@ export default {
     };
   },
   mounted() {
+    // ========== 歌单配置说明 ==========
+    // 1. 打开网易云音乐，找到你喜欢的歌单
+    // 2. 复制歌单链接，如：https://music.163.com/#/playlist?id=626864109
+    // 3. 把链接中的数字（626864109）复制到下面的 id 中
+    // 4. 支持的音乐平台：netease(网易云), tencent(QQ音乐), kugou(酷狗), kuwo(酷我)
+    // 5. 支持的类型：playlist(歌单), song(单曲), album(专辑)
+    
     let server = "netease"; //netease: 网易云音乐; tencent: QQ音乐; kugou: 酷狗音乐; xiami: 虾米; kuwo: 酷我
     let type = "playlist"; //song: 单曲; playlist: 歌单; album: 唱片
-    let id = "626864109"; //封面 ID / 单曲 ID / 歌单 ID
+    let id = "626864109"; //歌单 ID（在这里修改成你的歌单ID）
     const apiUrl = `https://api.i-meto.com/meting/api?server=${server}&type=${type}&id=${id}`;
     fetch(apiUrl)
       .then((response) => {

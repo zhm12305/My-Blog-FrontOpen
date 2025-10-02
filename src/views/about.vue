@@ -27,7 +27,7 @@
               <span class="author-tag">吃饭不如碎觉 💤</span>
               <span class="author-tag">乐观 积极 向上 🤝</span>
               <span class="author-tag">专攻各种困难 🔨</span>
-              <span class="author-tag">人不狠话超多 💢</span>
+              <span class="author-tag">人不狠话不多 💢</span>
             </div>
             <div class="image-dot"></div>
           </div>
@@ -168,7 +168,7 @@
                     <i class="icon-pos-dy"></i>
                     <i class="icon-pos-sup"></i>
                   </div>
-                  <div class="tips">手Q111区 黑猫糖果</div>
+                  <div class="tips">手Q461区 蛮荒漠地</div>
                 </div>
               </div>
             </div>

@@ -27,6 +27,8 @@
       <myFooter></myFooter>
     </div>
     <aplayer></aplayer>
+    <!-- 滚动绳子效果 -->
+    <scrollRope></scrollRope>
     <div v-if="$store.state.isShowLoading" class="loading">
       <div class="author-box">
         <span></span>
@@ -88,11 +90,13 @@
 <script>
 const myFooter = () => import("./views/common/footer.vue");
 const aplayer = () => import("./views/common/aplayer.vue");
+const scrollRope = () => import("./views/common/scrollRope.vue");
 export default {
   name: "App",
   components: {
     aplayer,
     myFooter,
+    scrollRope,
   },
   data() {
     return {
