@@ -1,12 +1,18 @@
 <template>
   <div>
-    <!-- 首页图片 - 始终显示背景（使用img标签以支持referrerpolicy） -->
+    <!-- 加载状态 - 数据加载中显示骨架屏 -->
+    <div v-if="$common.isEmpty(article)" style="padding: 100px 20px; text-align: center;">
+      <el-skeleton :rows="8" animated />
+    </div>
+
+    <!-- 首页图片 - 等待文章数据加载后再显示，避免闪烁 -->
     <div
+      v-if="!$common.isEmpty(article)"
       style="animation: header-effect 2s; position: relative; overflow: hidden;"
       class="background-image background-image-changeBg blur-filter"
     >
       <img
-        :src="getCoverImage()"
+        :src="coverImage"
         referrerpolicy="no-referrer"
         style="width: 100%; height: 100%; object-fit: cover; object-position: center; position: absolute; top: 0; left: 0;"
         @error="handleCoverError"
@@ -259,15 +265,17 @@ export default {
     this.$common.getThemeRgb();
     next();
   },
-  methods: {
-    getCoverImage() {
-      // 获取封面图片URL，确保不返回空字符串
+  computed: {
+    coverImage() {
+      // 计算属性：自动响应article数据变化，确保不返回空字符串
       const articleCover = this.article?.articleCover?.trim();
       const randomCover = this.$store.state.webInfo?.randomCover?.[0]?.trim();
       const defaultCover = 'https://zhi-blog.inter-trade.top/yinlang.jpg';
       
       return articleCover || randomCover || defaultCover;
     },
+  },
+  methods: {
     handleCoverError(event) {
       // 封面图片加载失败时的处理
       console.warn('文章封面加载失败，使用默认图片');
