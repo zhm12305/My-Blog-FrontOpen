@@ -1168,6 +1168,10 @@ export default {
       // 刷新时触发，优先应用store中的背景
       if (!item) {
         const dom = document.querySelector(".background-image-changeBg");
+        if (!dom) {
+          console.warn("背景元素 .background-image-changeBg 不存在，跳过背景设置");
+          return;
+        }
         const storeInfo = this.$store.state.changeBg;
         const string = storeInfo.split("#");
         if (string[0] === "") {
@@ -1189,6 +1193,10 @@ export default {
       } else if (item) {
         //只有点击切换时触发
         const dom = document.querySelector(".background-image-changeBg");
+        if (!dom) {
+          console.warn("背景元素 .background-image-changeBg 不存在，跳过背景设置");
+          return;
+        }
         const string = item.split("#");
         // 纯色
         if (string[0] === "") {
@@ -1220,6 +1228,14 @@ export default {
       document.documentElement.dataset.theme = "light";
       localStorage.removeItem("themeColor");
       const dom = document.querySelector(".background-image-changeBg");
+      if (!dom) {
+        console.warn("背景元素 .background-image-changeBg 不存在，跳过背景设置");
+        this.$store.commit(
+          "changeBgBox",
+          "url(https://zhi-blog.inter-trade.top/yinlang.jpg)"
+        );
+        return;
+      }
       dom.setAttribute(
         "style",
         "background-image: url(https://zhi-blog.inter-trade.top/yinlang.jpg);background-size: cover;background-attachment: local;background-position: center;width: 100%;height: 100%;"

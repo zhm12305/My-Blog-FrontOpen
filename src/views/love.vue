@@ -1,5 +1,11 @@
 <template>
   <div>
+    <!-- 全局背景层 -->
+    <div
+      style="animation: header-effect 2s"
+      :style="{ background: `${$store.state.changeBg}` }"
+      class="background-image background-image-changeBg"
+    ></div>
     <!-- 顶部封面 -->
     <div class="bg-wrap my-animation-slide-top">
       <!-- 背景图片 -->
