@@ -62,9 +62,11 @@
             <el-image
               class="my-el-image"
               @load="allLoad"
+              @error="handleImageError(article)"
               :lazy="activeIcon"
               :src="article.articleCover"
               fit="cover"
+              referrerpolicy="no-referrer"
             >
               <!-- 懒加载图片 -->
               <div slot="placeholder">
@@ -247,6 +249,34 @@ export default {
     window.removeEventListener("resize", this.updateColumns);
   },
   methods: {
+    handleImageError(article) {
+      // 图片加载失败时的调试信息
+      console.error('❌ 文章封面加载失败:', {
+        文章标题: article.articleTitle,
+        封面链接: article.articleCover,
+        链接长度: article.articleCover?.length,
+        是否HTTPS: article.articleCover?.startsWith('https'),
+        是否HTTP: article.articleCover?.startsWith('http'),
+      });
+      
+      // 尝试修复常见问题
+      if (article.articleCover) {
+        // 1. 检查URL编码问题
+        try {
+          const decoded = decodeURIComponent(article.articleCover);
+          if (decoded !== article.articleCover) {
+            console.warn('⚠️ URL可能存在编码问题');
+          }
+        } catch (e) {
+          console.error('URL解码失败:', e);
+        }
+        
+        // 2. 检查协议
+        if (article.articleCover.startsWith('http://') && window.location.protocol === 'https:') {
+          console.warn('⚠️ 检测到混合内容问题：HTTPS页面加载HTTP图片');
+        }
+      }
+    },
     updateColumns() {
       // tip：媒体查询行不通
       this.screenWidth = window.innerWidth;

@@ -98,7 +98,7 @@
               >
                 <div class="post_cover">
                   <a href="javascript:;">
-                    <img :src="article.articleCover" />
+                    <img :src="article.articleCover" referrerpolicy="no-referrer" />
                   </a>
                 </div>
                 <div class="post_info">

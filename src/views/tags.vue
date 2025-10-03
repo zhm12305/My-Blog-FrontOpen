@@ -28,7 +28,7 @@
                     query: { id: item.label[0].articleId },
                   })
                 " href="javascript:;" class="article-sort-item-img">
-                <el-image class="img" v-once lazy :src="item.articleCover">
+                <el-image class="img" v-once lazy :src="item.articleCover" referrerpolicy="no-referrer">
                   <!-- 懒加载图片 -->
                   <div slot="placeholder">
                     <div>

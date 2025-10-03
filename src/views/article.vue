@@ -1,16 +1,17 @@
 <template>
   <div>
-    <!-- 首页图片 - 始终显示背景 -->
+    <!-- 首页图片 - 始终显示背景（使用img标签以支持referrerpolicy） -->
     <div
-      style="animation: header-effect 2s"
-      :style="{ 
-        backgroundImage: `url(${(article && article.articleCover) || 'https://zhi-blog.inter-trade.top/hana-lin-20200323-8-ok.jpg'})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }"
+      style="animation: header-effect 2s; position: relative; overflow: hidden;"
       class="background-image background-image-changeBg blur-filter"
-    ></div>
+    >
+      <img
+        :src="(article && article.articleCover) || ($store.state.webInfo.randomCover && $store.state.webInfo.randomCover[0]) || 'https://zhi-blog.inter-trade.top/yinlang.jpg'"
+        referrerpolicy="no-referrer"
+        style="width: 100%; height: 100%; object-fit: cover; object-position: center; position: absolute; top: 0; left: 0;"
+        @error="handleCoverError"
+      />
+    </div>
     
     <!-- 文章内容 - 只有有数据时才显示 -->
     <div v-if="!$common.isEmpty(article)">
@@ -259,15 +260,31 @@ export default {
     next();
   },
   methods: {
+    handleCoverError(event) {
+      // 封面图片加载失败时的处理
+      console.warn('文章封面加载失败，使用默认图片');
+      const defaultCover = (this.$store.state.webInfo.randomCover && this.$store.state.webInfo.randomCover[0]) || 'https://zhi-blog.inter-trade.top/yinlang.jpg';
+      event.target.src = defaultCover;
+    },
     getSummary() {
+      // 验证文章数据
       if (!this.article || !this.article.id) {
+        console.warn('文章数据不存在，无法生成摘要');
         return;
       }
+      // 如果已有摘要，不重复生成
       if (this.article.summary || this.summary) {
         return;
       }
+      // 验证文章内容
+      if (!this.article.articleContent || this.article.articleContent.length < 50) {
+        console.warn('文章内容过短，无法生成摘要');
+        return;
+      }
+      
       this.loading = true;
       const message = this.article.articleContent;
+      
       this.$http
         .post(
           this.$constant.baseURL + "/summary",
@@ -277,14 +294,22 @@ export default {
           false
         )
         .then((res) => {
-          this.summary = res.summary;
+          if (res && res.summary) {
+            this.summary = res.summary;
+            // 同步更新到article对象
+            this.article.summary = res.summary;
+          } else {
+            console.warn('AI返回的摘要为空');
+          }
           this.loading = false;
         })
         .catch((error) => {
+          this.loading = false;  // 确保错误时也关闭loading
+          console.error('生成摘要失败:', error);
           this.$notify({
             type: "error",
-            title: "可恶🤬",
-            message: error.message,
+            title: "生成摘要失败",
+            message: error.message || 'AI服务暂时不可用，请稍后重试',
             position: "top-left",
             offset: 50,
           });
@@ -515,13 +540,39 @@ export default {
             this.article = res.result[0].data[0];
             this.getColorFromImage(this.article.articleCover);
             this.getNews();
-            const md = new MarkdownIt({ breaks: true });
+            const md = new MarkdownIt({ 
+              breaks: true,
+              html: true,
+              linkify: true
+            });
+            
+            // 渲染Markdown内容
             this.articleContentHtml = md.render(this.article.articleContent);
+            
+            // 处理图片加载错误（添加onerror处理）
+            this.$nextTick(() => {
+              const images = document.querySelectorAll('.entry-content img');
+              images.forEach(img => {
+                img.onerror = function() {
+                  this.style.display = 'none';
+                  // 创建错误提示
+                  const errorDiv = document.createElement('div');
+                  errorDiv.style.cssText = 'padding: 20px; background: var(--lightYellow); border-radius: 5px; color: var(--fontColor); margin: 10px 0; text-align: center;';
+                  errorDiv.innerHTML = '📷 图片加载失败：' + (this.alt || '未命名图片');
+                  this.parentNode.insertBefore(errorDiv, this);
+                  this.remove();
+                };
+              });
+            });
             this.$nextTick(() => {
               this.highlight();
               this.addId();
               this.getTocbot();
             });
+            // 自动生成摘要（如果文章没有摘要）
+            if (!this.article.summary) {
+              this.getSummary();
+            }
           } else {
             // 如果没有获取到文章数据，跳转到首页
             this.$router.push('/');
