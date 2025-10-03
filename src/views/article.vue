@@ -549,9 +549,24 @@ export default {
                 // 给当前点击项添加active class
                 clickedLink.classList.add('is-active-link');
                 
-                // 计算目标位置，多滚动50px确保tocbot能识别到
-                // 原本offset是-100，现在改成-50，让标题更往上一点
-                const targetPosition = targetElement.offsetTop;
+                // 使用getBoundingClientRect获取元素相对于视口的位置
+                // 加上当前滚动距离，得到元素相对于文档顶部的真实位置
+                const rect = targetElement.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // 计算偏移量：让标题距离页面顶部有一个小距离（50px）
+                // 这样标题会更靠近顶部，阅读体验更好
+                const headerOffset = 50; // 可调整：数值越小，标题越靠近顶部
+                const targetPosition = rect.top + scrollTop - headerOffset;
+                
+                console.log('📍 滚动调试信息:', {
+                  targetId: targetId,
+                  rect_top: rect.top,
+                  scrollTop: scrollTop,
+                  headerOffset: headerOffset,
+                  targetPosition: targetPosition,
+                  '最终滚动位置': targetPosition
+                });
                 
                 // 平滑滚动到目标位置
                 window.scrollTo({
