@@ -527,6 +527,27 @@ export default {
           fixedSidebarOffset: "auto",
           scrollSmoothOffset: -100,
           hasInnerContainers: true,
+          // 禁用hash更新，防止与Vue Router的hash模式冲突
+          disableTocScrollSync: false,
+          // 阻止默认的hash行为
+          onClick: function(e) {
+            e.preventDefault();
+            // 获取目标元素
+            const target = e.target;
+            const href = target.getAttribute('href');
+            if (href && href.startsWith('#')) {
+              const targetId = href.substring(1);
+              const targetElement = document.getElementById(targetId);
+              if (targetElement) {
+                // 平滑滚动到目标位置，不修改URL
+                targetElement.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }
+            }
+            return false;
+          }
         });
       };
     },
