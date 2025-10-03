@@ -219,7 +219,7 @@ export default {
     user-select: none;
     position: relative;
     background-color: #3b82f6;
-    background-image: url(https://s21.ax1x.com/2025/10/02/pVTdpEq.jpg);
+    background-image: url(https://s21.ax1x.com/2025/10/02/pVTd9U0.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
