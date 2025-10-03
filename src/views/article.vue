@@ -532,15 +532,26 @@ export default {
           // 阻止默认的hash行为
           onClick: function(e) {
             e.preventDefault();
-            // 获取目标元素
-            const target = e.target;
-            const href = target.getAttribute('href');
+            // 获取点击的目录项
+            const clickedLink = e.target.closest('a');
+            if (!clickedLink) return false;
+            
+            const href = clickedLink.getAttribute('href');
             if (href && href.startsWith('#')) {
               const targetId = href.substring(1);
               const targetElement = document.getElementById(targetId);
               if (targetElement) {
-                // 计算目标位置，考虑偏移量
-                const targetPosition = targetElement.offsetTop - 100;
+                // 立即更新目录active状态（手动设置）
+                // 移除所有active class
+                document.querySelectorAll('#toc .is-active-link').forEach(el => {
+                  el.classList.remove('is-active-link');
+                });
+                // 给当前点击项添加active class
+                clickedLink.classList.add('is-active-link');
+                
+                // 计算目标位置，多滚动50px确保tocbot能识别到
+                // 原本offset是-100，现在改成-50，让标题更往上一点
+                const targetPosition = targetElement.offsetTop - 50;
                 
                 // 平滑滚动到目标位置
                 window.scrollTo({
@@ -548,16 +559,16 @@ export default {
                   behavior: 'smooth'
                 });
                 
-                // 滚动完成后手动触发tocbot状态刷新
-                // 使用setTimeout等待滚动动画完成（通常600-800ms）
-                setTimeout(() => {
-                  // 触发scroll事件让tocbot更新active状态
+                // 滚动过程中持续触发scroll事件，让tocbot实时更新
+                let scrollCheckCount = 0;
+                const scrollCheckInterval = setInterval(() => {
                   window.dispatchEvent(new Event('scroll'));
-                  // 如果tocbot有refresh方法，也调用一下
-                  if (typeof tocbot.refresh === 'function') {
-                    tocbot.refresh();
+                  scrollCheckCount++;
+                  // 检查10次后停止（大约1秒）
+                  if (scrollCheckCount >= 10) {
+                    clearInterval(scrollCheckInterval);
                   }
-                }, 800);
+                }, 100);
               }
             }
             return false;
