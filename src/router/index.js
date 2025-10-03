@@ -252,28 +252,38 @@ function checkAndNotifyGuestStatus(to) {
     return;
   }
   
-  const userToken = localStorage.getItem("userToken");
-  const adminToken = localStorage.getItem("adminToken");
-  const currentUser = store.state.currentUser;
-  const currentAdmin = store.state.currentAdmin;
+  // 判断是前台还是后台页面
+  const isBackendPage = to.matched.some((record) => record.meta.requiresAuth);
   
-  // 检查是否有有效的登录状态（必须同时有token和用户信息）
-  const hasValidUser = userToken && currentUser && Object.keys(currentUser).length > 0;
-  const hasValidAdmin = adminToken && currentAdmin && Object.keys(currentAdmin).length > 0;
-  
-  if (!hasValidUser && !hasValidAdmin) {
-    // 通过 store 触发访客状态通知
-    store.commit("TRIGGER_GUEST_NOTIFICATION", {
-      title: "访客模式 👋",
-      message: "您当前以访客身份浏览，登录后可享受更多功能！",
-      type: "info",
-      path: to.path
-    });
-    console.log(`页面加载 ${to.path} - 当前为访客状态`);
+  if (isBackendPage) {
+    // 后台页面：只检查管理员登录状态
+    const adminToken = localStorage.getItem("adminToken");
+    const currentAdmin = store.state.currentAdmin;
+    const hasValidAdmin = adminToken && currentAdmin && Object.keys(currentAdmin).length > 0;
+    
+    if (hasValidAdmin) {
+      console.log(`页面加载 ${to.path} - 欢迎回来，管理员 ${currentAdmin.username}！`);
+    } else {
+      console.log(`页面加载 ${to.path} - 后台未登录（即将跳转登录页）`);
+    }
   } else {
-    // 如果已登录，显示欢迎信息（可选）
-    const userName = currentUser?.username || currentAdmin?.username || '用户';
-    console.log(`页面加载 ${to.path} - 欢迎回来，${userName}！`);
+    // 前台页面：只检查前台用户登录状态
+    const userToken = localStorage.getItem("userToken");
+    const currentUser = store.state.currentUser;
+    const hasValidUser = userToken && currentUser && Object.keys(currentUser).length > 0;
+    
+    if (!hasValidUser) {
+      // 通过 store 触发访客状态通知
+      store.commit("TRIGGER_GUEST_NOTIFICATION", {
+        title: "访客模式 👋",
+        message: "您当前以访客身份浏览，登录后可享受更多功能！",
+        type: "info",
+        path: to.path
+      });
+      console.log(`页面加载 ${to.path} - 当前为访客状态`);
+    } else {
+      console.log(`页面加载 ${to.path} - 欢迎回来，${currentUser.username}！`);
+    }
   }
 }
 export default router;
