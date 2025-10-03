@@ -6,7 +6,7 @@
       class="background-image background-image-changeBg blur-filter"
     >
       <img
-        :src="(article && article.articleCover) || ($store.state.webInfo.randomCover && $store.state.webInfo.randomCover[0]) || 'https://zhi-blog.inter-trade.top/yinlang.jpg'"
+        :src="getCoverImage()"
         referrerpolicy="no-referrer"
         style="width: 100%; height: 100%; object-fit: cover; object-position: center; position: absolute; top: 0; left: 0;"
         @error="handleCoverError"
@@ -260,11 +260,21 @@ export default {
     next();
   },
   methods: {
+    getCoverImage() {
+      // 获取封面图片URL，确保不返回空字符串
+      const articleCover = this.article?.articleCover?.trim();
+      const randomCover = this.$store.state.webInfo?.randomCover?.[0]?.trim();
+      const defaultCover = 'https://zhi-blog.inter-trade.top/yinlang.jpg';
+      
+      return articleCover || randomCover || defaultCover;
+    },
     handleCoverError(event) {
       // 封面图片加载失败时的处理
       console.warn('文章封面加载失败，使用默认图片');
-      const defaultCover = (this.$store.state.webInfo.randomCover && this.$store.state.webInfo.randomCover[0]) || 'https://zhi-blog.inter-trade.top/yinlang.jpg';
-      event.target.src = defaultCover;
+      const randomCover = this.$store.state.webInfo?.randomCover?.[0]?.trim();
+      const defaultCover = 'https://zhi-blog.inter-trade.top/yinlang.jpg';
+      
+      event.target.src = randomCover || defaultCover;
     },
     getSummary() {
       // 验证文章数据
