@@ -229,10 +229,21 @@ export default {
     // 翻页
     articleList: {
       handler(newVal) {
-        if (newVal.length > 0 && !this.activeIcon) {
-          this.loadingMark = true;
-          const cParent = document.querySelector("#container");
-          cParent.style.opacity = 0;
+        if (newVal.length > 0) {
+          // 调试：输出文章列表数据
+          console.log('📝 文章列表数据:', newVal.map(a => ({
+            标题: a.articleTitle,
+            封面: a.articleCover,
+            作者: a.username,
+            封面长度: a.articleCover?.length,
+            封面为空: !a.articleCover || a.articleCover === ''
+          })));
+          
+          if (!this.activeIcon) {
+            this.loadingMark = true;
+            const cParent = document.querySelector("#container");
+            cParent.style.opacity = 0;
+          }
         }
       },
       deep: true,
@@ -255,9 +266,21 @@ export default {
         文章标题: article.articleTitle,
         封面链接: article.articleCover,
         链接长度: article.articleCover?.length,
+        链接类型: typeof article.articleCover,
+        是否为空: !article.articleCover || article.articleCover === '',
         是否HTTPS: article.articleCover?.startsWith('https'),
         是否HTTP: article.articleCover?.startsWith('http'),
       });
+      
+      // 如果封面URL为空或无效，尝试使用默认封面
+      if (!article.articleCover || article.articleCover === '') {
+        console.warn('⚠️ 文章封面URL为空，将使用默认封面');
+        // 尝试从store获取默认封面
+        const defaultCover = this.$store.state.webInfo?.randomCover?.[0];
+        if (defaultCover) {
+          article.articleCover = defaultCover;
+        }
+      }
       
       // 尝试修复常见问题
       if (article.articleCover) {
