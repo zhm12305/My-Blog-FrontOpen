@@ -114,7 +114,6 @@
           <!-- 文章列表 -->
           <articleList
             :articleList="articles"
-            :parentLoadingMark="parentLoadingMark"
           ></articleList>
           <!-- 底部 -->
           <div class="pagination-wrap">
@@ -189,17 +188,7 @@ export default {
           },
         ],
       },
-      parentLoadingMark: false,
     };
-  },
-  beforeRouteEnter(to, from, next) {
-    if (from.path === "/") {
-      next((vm) => {
-        vm.parentLoadingMark = true;
-      });
-    } else {
-      next();
-    }
   },
   created() {
     this.getGuShi();

@@ -1,9 +1,5 @@
 <template>
   <div v-if="!$common.isEmpty(articleList)" class="recent-post-container">
-    <smokeLoading
-      v-show="loadingMark && !this.$common.mobile()"
-      :loadingText="loadingText"
-    />
     <div class="article-first">
       <div><i class="iconfont icon-ziyuan11"></i> 发现</div>
       <div class="right-icon">
@@ -194,38 +190,24 @@
 </template>
 <script>
 const switchBtn = () => import("./common/switchBtn");
-const smokeLoading = () => import("./common/smokeLoading");
 export default {
   components: {
     switchBtn,
-    smokeLoading,
   },
   props: {
     articleList: {
       type: Array,
     },
-    parentLoadingMark: {
-      type: Boolean,
-    },
   },
   data() {
     return {
       loading: false,
-      loadingText: "Loading...",
-      loadingMark: false,
       activeIcon: true,
       screenWidth: window.innerWidth,
       allLoadIndex: 0, // 记录加载完成的图片数量
     };
   },
   watch: {
-    parentLoadingMark: {
-      immediate: true,
-      handler(newVal) {
-        this.loadingMark = newVal;
-        this.loadingText = "羌笛萧萧安然";
-      },
-    },
     // 翻页
     articleList: {
       handler(newVal) {
@@ -240,7 +222,6 @@ export default {
           })));
           
           if (!this.activeIcon) {
-            this.loadingMark = true;
             const cParent = document.querySelector("#container");
             cParent.style.opacity = 0;
           }
@@ -251,9 +232,6 @@ export default {
     },
   },
   mounted() {
-    setTimeout(() => {
-      this.loadingMark = false;
-    }, 3500);
     window.addEventListener("resize", this.updateColumns);
   },
   beforeDestroy() {
