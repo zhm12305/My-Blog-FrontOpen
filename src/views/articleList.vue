@@ -272,14 +272,19 @@ export default {
         是否HTTP: article.articleCover?.startsWith('http'),
       });
       
-      // 如果封面URL为空或无效，尝试使用默认封面
+      // 调试：输出store中的数据
+      console.log('🔍 Store数据检查:', {
+        webInfo存在: !!this.$store.state.webInfo,
+        randomCover存在: !!this.$store.state.webInfo?.randomCover,
+        randomCover类型: typeof this.$store.state.webInfo?.randomCover,
+        randomCover值: this.$store.state.webInfo?.randomCover
+      });
+      
+      // 如果封面URL为空或无效，不做任何处理
+      // el-image组件会自动显示error slot中的内容
       if (!article.articleCover || article.articleCover === '') {
-        console.warn('⚠️ 文章封面URL为空，将使用默认封面');
-        // 尝试从store获取默认封面
-        const defaultCover = this.$store.state.webInfo?.randomCover?.[0];
-        if (defaultCover) {
-          article.articleCover = defaultCover;
-        }
+        console.warn('⚠️ 文章封面URL为空，el-image将显示错误占位图');
+        return;
       }
       
       // 尝试修复常见问题
