@@ -551,7 +551,7 @@ export default {
                 
                 // 计算目标位置，多滚动50px确保tocbot能识别到
                 // 原本offset是-100，现在改成-50，让标题更往上一点
-                const targetPosition = targetElement.offsetTop - 30;
+                const targetPosition = targetElement.offsetTop;
                 
                 // 平滑滚动到目标位置
                 window.scrollTo({
