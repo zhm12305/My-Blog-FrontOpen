@@ -545,19 +545,24 @@ export default {
                 const rect = targetElement.getBoundingClientRect();
                 const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 
-                // 计算目标滚动位置：让标题紧贴视口顶部
-                // rect.top 是标题当前距离视口顶部的距离
-                // 需要滚动 rect.top 这么多像素，标题就会到达视口顶部
-                const scrollOffset = 0; // 0px = 标题紧贴视口顶部，可改成5、10等小值留白
+                // 获取标题元素的实际样式（包括margin）
+                const targetStyles = window.getComputedStyle(targetElement);
+                const marginTop = parseInt(targetStyles.marginTop) || 0;
+                
+                // 计算目标滚动位置：
+                // rect.top 是标题元素（包括margin）距离视口顶部的距离
+                // 但我们想要标题文字到顶部，所以要加上margin值
+                const scrollOffset = -marginTop; // 负值：让标题文字更靠上，抵消margin
                 const targetScrollPosition = currentScrollTop + rect.top - scrollOffset;
                 
                 console.log('📍 滚动调试信息:', {
                   targetId: targetId,
-                  '标题当前距视口顶部': rect.top + 'px',
+                  '标题元素距视口顶部': rect.top + 'px',
+                  '标题margin-top': marginTop + 'px',
                   '当前已滚动': currentScrollTop + 'px',
-                  '留白距离': scrollOffset + 'px',
+                  '滚动偏移': scrollOffset + 'px',
                   '需要滚动到': targetScrollPosition + 'px',
-                  '说明': scrollOffset === 0 ? '标题将紧贴视口顶部(0px)' : `标题将距离视口顶部${scrollOffset}px`
+                  '说明': '标题文字将紧贴视口顶部(抵消margin后为0px)'
                 });
                 
                 // 平滑滚动到目标位置
