@@ -639,7 +639,7 @@ export default {
   width: 100%;
 }
 .author-content-item.map {
-  background: url(https://www.qiniuyun.monkey-papa.icu/avatar/map.png) no-repeat
+  background: url(https://qiniu.inter-trade.top/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-10-03%20104246.png) no-repeat
     center;
   min-height: 200px;
   max-height: 400px;
@@ -915,7 +915,7 @@ sup {
 }
 .author-content-item.like-technology {
   border: 1px;
-  background: url(https://www.qiniuyun.monkey-papa.icu/avatar/iphone.jpg)
+  background: url(https://qiniu.inter-trade.top/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-10-03%20104658.png)
     no-repeat;
   background-size: cover;
   min-height: 230px;

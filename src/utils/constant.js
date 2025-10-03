@@ -102,32 +102,32 @@ export default {
   ],
   about: [
     {
-      img: "https://www.qiniuyun.monkey-papa.icu/avatar/%E4%B8%8D%E8%89%AF%E4%BA%BA1.jpg",
+      img: "https://qiniu.inter-trade.top/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-10-03%20100915.png",
       tit: "女帝",
       sub: "巾帼女帝，新生红衣😍",
     },
     {
-      img: "https://www.qiniuyun.monkey-papa.icu/avatar/%E4%B8%8D%E8%89%AF%E4%BA%BA2.jpg",
+      img: "https://qiniu.inter-trade.top/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%85%AB%E9%87%8D%E7%A5%9E%E5%AD%90-%E5%8E%9F%E7%A5%9E.png",
       tit: "新不良帅",
       sub: "弃天道，择霸道🥱",
     },
     {
-      img: "https://www.qiniuyun.monkey-papa.icu/avatar/%E4%B8%8D%E8%89%AF%E4%BA%BA3.jpg",
+      img: "https://qiniu.inter-trade.top/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8D%A1%E6%8F%90%E5%B8%8C%E5%A8%85-%E6%9C%88%E5%A4%9C-%E6%A8%B1%E8%8A%B1.png",
       tit: "四大尸祖",
       sub: "搞笑女+搞笑男😅",
     },
     {
-      img: "https://www.qiniuyun.monkey-papa.icu/avatar/%E4%B8%8D%E8%89%AF%E4%BA%BA4.png",
+      img: "https://qiniu.inter-trade.top/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%88%9D%E9%9F%B3%E6%9C%AA%E6%9D%A5-%E8%99%9A%E6%8B%9F%E6%AD%8C%E5%A7%AC.png",
       tit: "这俩货",
       sub: "导致我每集片头都不跳过😋",
     },
     {
-      img: "https://www.qiniuyun.monkey-papa.icu/avatar/%E4%B8%8D%E8%89%AF%E4%BA%BA6.jpg",
+      img: "https://qiniu.inter-trade.top/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BA%8C%E6%AC%A1%E5%85%83-%E5%85%89%E5%89%91-%E5%92%8C%E6%9C%8D.png",
       tit: "奥姑",
       sub: "好腿，只能说被打的真惨🤣",
     },
     {
-      img: "https://www.qiniuyun.monkey-papa.icu/avatar/%E4%B8%8D%E8%89%AF%E4%BA%BA7.jpg",
+      img: "https://qiniu.inter-trade.top/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-10-03%20103049.png",
       tit: "随心",
       sub: "(*^▽^*)",
     },
