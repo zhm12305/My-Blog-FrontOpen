@@ -542,27 +542,27 @@ export default {
                 clickedLink.classList.add('is-active-link');
                 
                 // 使用getBoundingClientRect获取元素相对于视口的位置
-                // 加上当前滚动距离，得到元素相对于文档顶部的真实位置
                 const rect = targetElement.getBoundingClientRect();
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 
-                // 计算偏移量：让标题距离页面顶部有一个小距离（50px）
-                // 这样标题会更靠近顶部，阅读体验更好
-                const headerOffset = -10; // 可调整：数值越小，标题越靠近顶部
-                const targetPosition = rect.top + scrollTop - headerOffset;
+                // 计算标题当前距离视口顶部的距离
+                // rect.top 就是标题距离视口顶部的像素数
+                // 我们需要滚动 rect.top 这么多像素，才能让标题到达视口顶部
+                // 再减去一个小偏移（10px）让标题不会完全贴边
+                const scrollOffset = 0; // 标题距离视口顶部的小距离
+                const targetScrollPosition = currentScrollTop + rect.top - scrollOffset;
                 
                 console.log('📍 滚动调试信息:', {
                   targetId: targetId,
-                  rect_top: rect.top,
-                  scrollTop: scrollTop,
-                  headerOffset: headerOffset,
-                  targetPosition: targetPosition,
-                  '最终滚动位置': targetPosition
+                  '标题距视口顶部': rect.top + 'px',
+                  '当前滚动位置': currentScrollTop,
+                  '需要滚动到': targetScrollPosition,
+                  '滚动偏移': scrollOffset + 'px'
                 });
                 
                 // 平滑滚动到目标位置
                 window.scrollTo({
-                  top: targetPosition,
+                  top: targetScrollPosition,
                   behavior: 'smooth'
                 });
                 
