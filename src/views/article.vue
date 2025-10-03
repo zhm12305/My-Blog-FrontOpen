@@ -556,7 +556,7 @@ export default {
                 
                 // 计算偏移量：让标题距离页面顶部有一个小距离（50px）
                 // 这样标题会更靠近顶部，阅读体验更好
-                const headerOffset = 50; // 可调整：数值越小，标题越靠近顶部
+                const headerOffset = 0; // 可调整：数值越小，标题越靠近顶部
                 const targetPosition = rect.top + scrollTop - headerOffset;
                 
                 console.log('📍 滚动调试信息:', {
