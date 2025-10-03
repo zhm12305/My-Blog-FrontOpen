@@ -748,7 +748,7 @@ export default {
   }
 }
 .blur-filter {
-  filter: blur(30px);
+  filter: blur(10px); /* 减小模糊值，让背景可见但不影响阅读 */
 }
 #toc-button {
   position: fixed;
