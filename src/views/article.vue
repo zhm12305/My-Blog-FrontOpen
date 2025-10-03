@@ -2,13 +2,13 @@
   <div>
     <!-- 首页图片 - 始终显示背景（使用img标签以支持referrerpolicy） -->
     <div
-      style="animation: header-effect 2s; position: relative; overflow: hidden;"
-      class="background-image background-image-changeBg blur-filter"
+      style="animation: header-effect 2s;"
+      class="background-image background-image-changeBg blur-filter article-cover-wrapper"
     >
       <img
         :src="coverImage"
         referrerpolicy="no-referrer"
-        style="width: 100%; height: 100%; object-fit: cover; object-position: center; position: absolute; top: 0; left: 0;"
+        class="article-cover-image"
         @error="handleCoverError"
       />
     </div>
@@ -216,13 +216,28 @@ export default {
     coverImage() {
       // 使用计算属性，当article变化时自动更新
       const articleCover = this.article?.articleCover?.trim();
-      const randomCover = this.$store.state.webInfo?.randomCover?.[0]?.trim();
       const defaultCover = 'https://zhi-blog.inter-trade.top/yinlang.jpg';
+      
+      // 从randomCover中过滤掉errorBG等无效URL
+      let randomCover = null;
+      const randomCovers = this.$store.state.webInfo?.randomCover || [];
+      for (const cover of randomCovers) {
+        const trimmed = cover?.trim();
+        // 跳过errorBG、lazy.gif等不适合作为封面的图片
+        if (trimmed && 
+            !trimmed.includes('errorBG') && 
+            !trimmed.includes('lazy.gif') &&
+            !trimmed.includes('switch-')) {
+          randomCover = trimmed;
+          break;
+        }
+      }
       
       const result = articleCover || randomCover || defaultCover;
       console.log('🖼️ 封面图片计算:', {
         article已加载: !!this.article?.articleTitle,
         articleCover: articleCover,
+        randomCover: randomCover,
         使用的封面: result
       });
       return result;
@@ -748,7 +763,20 @@ export default {
   }
 }
 .blur-filter {
-  filter: blur(10px); /* 减小模糊值，让背景可见但不影响阅读 */
+  filter: blur(30px);
+}
+.article-cover-wrapper {
+  position: fixed !important; /* 确保fixed定位不被覆盖 */
+  overflow: hidden;
+}
+.article-cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 #toc-button {
   position: fixed;
