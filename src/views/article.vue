@@ -491,22 +491,14 @@ export default {
       let scrollTop =
         document.documentElement.scrollTop || document.body.scrollTop;
       
-      // 安全检查 #article-like 元素是否存在
-      const articleLikeElement = $("#article-like");
-      const articleLikeOffset = articleLikeElement.length > 0 ? articleLikeElement.offset() : null;
-      
+      // 目录始终显示，只调整位置
+      // 在页面顶部时，目录居中显示；滚动后，目录固定在顶部100px位置
       if (scrollTop < window.innerHeight / 4) {
         $(".toc").css("top", window.innerHeight / 2);
         $(".toc").css("display", "unset");
-      } else if (
-        scrollTop > window.innerHeight / 4 &&
-        articleLikeOffset && 
-        scrollTop < articleLikeOffset.top - window.innerHeight
-      ) {
+      } else {
         $(".toc").css("top", "100px");
         $(".toc").css("display", "unset");
-      } else {
-        $(".toc").css("display", "none");
       }
     },
     getTocbot() {
