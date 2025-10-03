@@ -545,19 +545,27 @@ export default {
                 const rect = targetElement.getBoundingClientRect();
                 const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 
-                // 计算标题当前距离视口顶部的距离
-                // rect.top 就是标题距离视口顶部的像素数
-                // 我们需要滚动 rect.top 这么多像素，才能让标题到达视口顶部
-                // 再减去一个小偏移（10px）让标题不会完全贴边
-                const scrollOffset = 0; // 标题距离视口顶部的小距离
+                // 关键：页面顶部有fixed背景图占据了视口的一部分高度
+                // 我们需要让标题滚动到背景图下方，而不是视口最顶部
+                // 背景图高度通常是 window.innerHeight（全屏高度）
+                // 但实际可见内容应该从背景图后面开始
+                
+                // 获取背景图高度（假设是视口高度）
+                const backgroundHeight = window.innerHeight;
+                
+                // 计算目标位置：让标题出现在背景图下方一点点
+                // 减去背景图高度，让标题能被看到
+                const scrollOffset = backgroundHeight * 0.15; // 背景图下方15%的位置
                 const targetScrollPosition = currentScrollTop + rect.top - scrollOffset;
                 
                 console.log('📍 滚动调试信息:', {
                   targetId: targetId,
                   '标题距视口顶部': rect.top + 'px',
                   '当前滚动位置': currentScrollTop,
-                  '需要滚动到': targetScrollPosition,
-                  '滚动偏移': scrollOffset + 'px'
+                  '视口高度': window.innerHeight + 'px',
+                  '滚动偏移(15%视口)': scrollOffset + 'px',
+                  '最终需要滚动到': targetScrollPosition,
+                  '说明': '标题将出现在距离视口顶部15%的位置'
                 });
                 
                 // 平滑滚动到目标位置
