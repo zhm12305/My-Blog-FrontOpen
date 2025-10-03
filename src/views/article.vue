@@ -539,11 +539,25 @@ export default {
               const targetId = href.substring(1);
               const targetElement = document.getElementById(targetId);
               if (targetElement) {
-                // 平滑滚动到目标位置，不修改URL
-                targetElement.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start'
+                // 计算目标位置，考虑偏移量
+                const targetPosition = targetElement.offsetTop - 100;
+                
+                // 平滑滚动到目标位置
+                window.scrollTo({
+                  top: targetPosition,
+                  behavior: 'smooth'
                 });
+                
+                // 滚动完成后手动触发tocbot状态刷新
+                // 使用setTimeout等待滚动动画完成（通常600-800ms）
+                setTimeout(() => {
+                  // 触发scroll事件让tocbot更新active状态
+                  window.dispatchEvent(new Event('scroll'));
+                  // 如果tocbot有refresh方法，也调用一下
+                  if (typeof tocbot.refresh === 'function') {
+                    tocbot.refresh();
+                  }
+                }, 800);
               }
             }
             return false;
