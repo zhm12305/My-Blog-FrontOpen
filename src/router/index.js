@@ -257,16 +257,6 @@ function checkAndNotifyGuestStatus(to) {
   const currentUser = store.state.currentUser;
   const currentAdmin = store.state.currentAdmin;
   
-  // 如果没有token，清除残留的用户信息
-  if (!userToken && currentUser && Object.keys(currentUser).length > 0) {
-    console.log('⚠️ 检测到无效的用户状态（无token但有用户信息），清除中...');
-    store.commit("loadCurrentUser", {});
-  }
-  if (!adminToken && currentAdmin && Object.keys(currentAdmin).length > 0) {
-    console.log('⚠️ 检测到无效的管理员状态（无token但有用户信息），清除中...');
-    store.commit("loadCurrentAdmin", {});
-  }
-  
   // 检查是否有有效的登录状态（必须同时有token和用户信息）
   const hasValidUser = userToken && currentUser && Object.keys(currentUser).length > 0;
   const hasValidAdmin = adminToken && currentAdmin && Object.keys(currentAdmin).length > 0;

@@ -38,6 +38,41 @@ Vue.prototype.$constant = constant;
 Vue.config.productionTip = false;
 // 修改 el-dialog 默认点击遮照不关闭
 ElementUI.Dialog.props.closeOnClickModal.default = false;
+
+// 在Vue实例创建前，清理无效的登录状态
+(function cleanupInvalidLoginState() {
+  const userToken = localStorage.getItem("userToken");
+  const adminToken = localStorage.getItem("adminToken");
+  const vuexData = localStorage.getItem("vuex");
+  
+  if (vuexData) {
+    try {
+      const data = JSON.parse(vuexData);
+      let needUpdate = false;
+      
+      // 如果没有token但有用户信息，清除用户信息
+      if (!userToken && data.currentUser && Object.keys(data.currentUser).length > 0) {
+        console.log('🔧 清理残留的用户信息（无token）');
+        data.currentUser = {};
+        needUpdate = true;
+      }
+      
+      if (!adminToken && data.currentAdmin && Object.keys(data.currentAdmin).length > 0) {
+        console.log('🔧 清理残留的管理员信息（无token）');
+        data.currentAdmin = {};
+        needUpdate = true;
+      }
+      
+      // 如果需要更新，写回localStorage
+      if (needUpdate) {
+        localStorage.setItem("vuex", JSON.stringify(data));
+      }
+    } catch (e) {
+      console.error('清理登录状态时出错:', e);
+    }
+  }
+})();
+
 new Vue({
   router,
   store,
