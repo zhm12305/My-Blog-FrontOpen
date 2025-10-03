@@ -25,7 +25,7 @@ export default {
   // 
   // 如需使用后台上传功能，请配置七牛云：
   qiniuUploadImages: "https://blog.inter-trade.top/api/resource/updateImage/", // 后端上传接口
-  qiniuUploadEntrance: "http://qiniu.inter-trade.top/", // 七牛云外链域名（如已配置）
+  qiniuUploadEntrance: "https://www.qiniuyun.zjh2002.icu/", // 七牛云外链域名（如已配置）
   
   // 路过图床（推荐）
   imgseUrl: "https://imgse.com/", // 路过图床首页
