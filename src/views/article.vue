@@ -6,7 +6,7 @@
       class="background-image background-image-changeBg blur-filter"
     >
       <img
-        :src="getCoverImage()"
+        :src="coverImage"
         referrerpolicy="no-referrer"
         style="width: 100%; height: 100%; object-fit: cover; object-position: center; position: absolute; top: 0; left: 0;"
         @error="handleCoverError"
@@ -212,6 +212,22 @@ export default {
       loading: false,
     };
   },
+  computed: {
+    coverImage() {
+      // 使用计算属性，当article变化时自动更新
+      const articleCover = this.article?.articleCover?.trim();
+      const randomCover = this.$store.state.webInfo?.randomCover?.[0]?.trim();
+      const defaultCover = 'https://zhi-blog.inter-trade.top/yinlang.jpg';
+      
+      const result = articleCover || randomCover || defaultCover;
+      console.log('🖼️ 封面图片计算:', {
+        article已加载: !!this.article?.articleTitle,
+        articleCover: articleCover,
+        使用的封面: result
+      });
+      return result;
+    }
+  },
   created() {
     this.getArticle();
     this.mobile = document.body.clientWidth < 500;
@@ -260,14 +276,6 @@ export default {
     next();
   },
   methods: {
-    getCoverImage() {
-      // 获取封面图片URL，确保不返回空字符串
-      const articleCover = this.article?.articleCover?.trim();
-      const randomCover = this.$store.state.webInfo?.randomCover?.[0]?.trim();
-      const defaultCover = 'https://zhi-blog.inter-trade.top/yinlang.jpg';
-      
-      return articleCover || randomCover || defaultCover;
-    },
     handleCoverError(event) {
       // 封面图片加载失败时的处理
       console.warn('文章封面加载失败，使用默认图片');
