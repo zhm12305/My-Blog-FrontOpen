@@ -569,6 +569,7 @@ export default {
       }
     },
     async postProvinceAndCity() {
+      // 获取天气信息（暂时使用默认数据，因为API已失效）
       const res = await this.$common.getIpAndCity(this);
       this.city = res.city;
       this.weather = res.weather[0];
@@ -576,21 +577,16 @@ export default {
       this.afterTomWeather = res.weather[2];
       this.afterAfterTomWeather = res.weather[3];
       this.tip = res.tip;
+      
+      // 访问统计使用后端自动查询，不需要前端提供省份城市
       this.$http
         .post(this.$constant.baseURL + "/submit/", {
-          province: res.address,
-          city: res.city,
-          userId: this.$store.state.currentUser.id,
+          province: "",  // 后端会自动使用ip2region查询
+          city: "",
+          userId: this.$store.state.currentUser.id || "",
         })
-        .then((res) => {})
         .catch((error) => {
-          this.$notify({
-            type: "error",
-            title: "可恶🤬",
-            message: error.message,
-            position: "top-left",
-            offset: 50,
-          });
+          console.log("上报访问统计失败:", error);
         });
     },
     getHistoryInfo() {

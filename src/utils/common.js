@@ -242,13 +242,23 @@ export default {
         });
       });
   },
-  // 获取ip和城市
+  // 获取ip和城市（天气API已失效，暂时禁用）
   getIpAndCity(that) {
     return new Promise((resolve) => {
-      let city = "";
-      let address = "";
-      let weather = "";
-      let tip = "";
+      let city = "未知";
+      let address = "未知";
+      let weather = [
+        { week: "今天", type: "晴", low: "10℃", high: "20℃", fengxiang: "东风", fengli: "3级" },
+        { week: "明天", type: "晴", low: "10℃", high: "20℃", fengxiang: "东风", fengli: "3级" },
+        { week: "后天", type: "晴", low: "10℃", high: "20℃", fengxiang: "东风", fengli: "3级" },
+        { week: "大后天", type: "晴", low: "10℃", high: "20℃", fengxiang: "东风", fengli: "3级" }
+      ];
+      let tip = "天气API暂不可用";
+      
+      // 暂时返回默认数据，避免报错
+      resolve({ city, address, weather, tip });
+      
+      /* 原天气API已失效 (api.vvhan.com)
       that.$http
         .get(that.$constant.baseURL + "/ip/")
         .then(async (res) => {

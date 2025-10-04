@@ -273,13 +273,13 @@ function checkAndNotifyGuestStatus(to) {
     const hasValidUser = userToken && currentUser && Object.keys(currentUser).length > 0;
     
     if (!hasValidUser) {
-      // 通过 store 触发访客状态通知
-      store.commit("TRIGGER_GUEST_NOTIFICATION", {
-        title: "访客模式 👋",
-        message: "您当前以访客身份浏览，登录后可享受更多功能！",
-        type: "info",
-        path: to.path
-      });
+      // 已禁用访客提醒（用户反馈显示太频繁）
+      // store.commit("TRIGGER_GUEST_NOTIFICATION", {
+      //   title: "访客模式 👋",
+      //   message: "您当前以访客身份浏览，登录后可享受更多功能！",
+      //   type: "info",
+      //   path: to.path
+      // });
       console.log(`页面加载 ${to.path} - 当前为访客状态`);
     } else {
       console.log(`页面加载 ${to.path} - 欢迎回来，${currentUser.username}！`);

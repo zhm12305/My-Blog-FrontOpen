@@ -250,22 +250,15 @@ export default {
         });
     },
     async postProvinceAndCity() {
-      const res = await this.$common.getIpAndCity(this);
+      // 访问统计使用后端自动查询，不需要前端提供省份城市
       this.$http
         .post(this.$constant.baseURL + "/submit/", {
-          province: res.address,
-          city: res.city,
-          userId: this.$store.state.currentUser.id,
+          province: "",  // 后端会自动使用ip2region查询
+          city: "",
+          userId: this.$store.state.currentUser.id || "",
         })
-        .then(() => {})
         .catch((error) => {
-          this.$notify({
-            type: "error",
-            title: "可恶🤬",
-            message: error.message,
-            position: "top-left",
-            offset: 50,
-          });
+          console.log("上报访问统计失败:", error);
         });
     },
   },
