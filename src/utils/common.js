@@ -257,61 +257,6 @@ export default {
       
       // 暂时返回默认数据，避免报错
       resolve({ city, address, weather, tip });
-      
-      /* 原天气API已失效 (api.vvhan.com)
-      that.$http
-        .get(that.$constant.baseURL + "/ip/")
-        .then(async (res) => {
-          if (!that.$common.isEmpty(res.result[0].data[0].ip)) {
-            const ip = res.result[0].data[0].ip;
-            if (ip === "127.0.0.1") return;
-            //高德
-            const result1 = await axios.get(
-              `https://api.vvhan.com/api/weather?ip=${ip}&type=week`
-            );
-            const result2 = await axios.get(
-              `https://api.vvhan.com/api/ipInfo?ip=${ip}`
-            );
-            let u = navigator.userAgent;
-            let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-            if (
-              !typeof result1.data.data.split == "function" ||
-              !result1.data.data ||
-              isiOS
-            ) {
-              that.$notify({
-                type: "error",
-                title: "可恶🤬",
-                message: "由于设备隐私问题，无法获取您当前地点的天气信息",
-                position: "top-left",
-                offset: 50,
-              });
-              return;
-            }
-            weather = result1.data.data;
-            city = result1.data.city; // 城市
-            address = result2.data.info.prov; // 省份
-            tip = result1.data.tip;
-            resolve({ city, address, weather, tip });
-          } else {
-            that.$notify({
-              type: "error",
-              title: "可恶🤬",
-              message: "由于设备隐私问题，无法获取您当前地点的天气信息",
-              position: "top-left",
-              offset: 50,
-            });
-          }
-        })
-        .catch((error) => {
-          that.$notify({
-            type: "error",
-            title: "可恶🤬",
-            message: "由于设备隐私问题，无法获取您当前地点的天气信息",
-            position: "top-left",
-            offset: 50,
-          });
-        });
     });
   },
   /**
