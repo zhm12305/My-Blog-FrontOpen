@@ -681,6 +681,7 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 import mousedown from "../utils/mousedown";
 const switchBtn = () => import("./common/switchBtn");
 export default {
@@ -836,6 +837,9 @@ export default {
     // 检查并清理无效的登录状态
     this.checkAndCleanupLoginState();
     
+    // 记录访问统计（所有页面都会触发）
+    this.postProvinceAndCity();
+    
     this.getWebInfo();
     this.getSortInfo();
     this.mobile = document.body.clientWidth < 600;
@@ -873,6 +877,43 @@ export default {
     },
   },
   methods: {
+    // 上报访问统计（简化版，不依赖天气API）
+    async postProvinceAndCity() {
+      try {
+        // 获取IP
+        const ipRes = await this.$http.get(this.$constant.baseURL + "/ip/");
+        if (!this.$common.isEmpty(ipRes.result[0].data[0].ip)) {
+          const ip = ipRes.result[0].data[0].ip;
+          
+          // 尝试获取省份城市（失败也不影响统计）
+          let province = "未知";
+          let city = "未知";
+          
+          try {
+            const result = await axios.get(`https://api.vvhan.com/api/ipInfo?ip=${ip}`);
+            if (result.data && result.data.info) {
+              province = result.data.info.prov || "未知";
+              city = result.data.info.city || "未知";
+            }
+          } catch (error) {
+            console.log("获取地理位置失败，使用默认值");
+          }
+          
+          // 上报访问统计
+          this.$http
+            .post(this.$constant.baseURL + "/submit/", {
+              province: province,
+              city: city,
+              userId: this.$store.state.currentUser.id || "",
+            })
+            .catch((error) => {
+              console.log("上报访问统计失败:", error);
+            });
+        }
+      } catch (error) {
+        console.log("访问统计失败:", error);
+      }
+    },
     setColor(color) {
       this.themeActive = color;
       const root = document.querySelector(":root");
