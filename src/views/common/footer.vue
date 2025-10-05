@@ -194,7 +194,7 @@
       <div class="footer-bottom-content">
         <div class="footer-bottom-left">
           <span
-            >Copyright © 2023 By
+            >Copyright © 2025 By
             <a
               target="_blank"
               rel="noopener"
@@ -268,7 +268,7 @@
 export default {
   data() {
     return {
-      countdownTime: "2023-08-13 00:00:00",
+      countdownTime: "2025-10-18 00:00:00",
       countdownChange: "",
     };
   },
