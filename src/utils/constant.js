@@ -9,8 +9,8 @@ export default {
   
   // AES加密密钥 - 用于前端密码加密
   cryptojs_key: "POEMON-BLOG-KEY1",
-  //诗词语录
-  hitokoto: "https://v1.hitokoto.cn",
+  //诗词语录 - 使用后端代理避免CORS问题
+  hitokoto: "https://blog.inter-trade.top/api/quote/hitokoto/",
   shehui: "https://blog.inter-trade.top/api/quote/social/",
   jinrishici: "https://v1.jinrishici.com/all.json",
   //目录

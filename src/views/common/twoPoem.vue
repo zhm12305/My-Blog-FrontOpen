@@ -155,24 +155,34 @@ export default {
             try {
               const contentType = xhr.getResponseHeader("content-type");
               if (contentType && contentType.includes("application/json")) {
-                that.hitokoto = JSON.parse(xhr.responseText)
+                const response = JSON.parse(xhr.responseText)
+                // 适配后端代理返回的格式 {code: 200, data: {...}}
+                if (response.code === 200 && response.data) {
+                  that.hitokoto = response.data
+                } else if (response.hitokoto) {
+                  // 兼容原始API格式
+                  that.hitokoto = response
+                } else {
+                  console.warn('一言API返回数据格式异常:', response)
+                  that.hitokoto = { hitokoto: "一言加载失败", from: "", from_who: "" }
+                }
               } else {
                 console.warn('一言API返回非JSON数据')
-                that.hitokoto = { hitokoto: "一言加载失败" }
+                that.hitokoto = { hitokoto: "一言加载失败", from: "", from_who: "" }
               }
             } catch (error) {
               console.error('解析一言JSON失败:', error)
-              that.hitokoto = { hitokoto: "一言加载失败" }
+              that.hitokoto = { hitokoto: "一言加载失败", from: "", from_who: "" }
             }
           } else {
             console.error('一言API请求失败，状态码:', xhr.status)
-            that.hitokoto = { hitokoto: "一言加载失败" }
+            that.hitokoto = { hitokoto: "一言加载失败", from: "", from_who: "" }
           }
         }
       }
       xhr.onerror = function() {
         console.error('一言API网络错误')
-        that.hitokoto = { hitokoto: "网络连接失败" }
+        that.hitokoto = { hitokoto: "网络连接失败", from: "", from_who: "" }
       }
       xhr.send()
     }
