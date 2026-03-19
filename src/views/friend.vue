@@ -25,17 +25,34 @@
         <div @click="clickLetter()" class="form-wrap">
           <!-- 信封上面 -->
           <img
+            v-if="$store.state.webInfo.randomCover && $store.state.webInfo.randomCover.length > 8"
             class="before-img"
             :src="$store.state.webInfo.randomCover[8]"
             style="width: 100%"
+            @error="handleImageError"
           />
+          <div
+            v-else
+            class="before-img"
+            style="width: 100%; height: 317px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;"
+          >
+            信封装饰图
+          </div>
           <!-- 信 -->
           <div class="envelope" style="animation: hideToShow 2s">
             <div class="form-main shadow-box">
               <img
+                v-if="$store.state.webInfo.randomCover && $store.state.webInfo.randomCover.length > 11"
                 :src="$store.state.webInfo.randomCover[11]"
                 style="width: 100%"
+                @error="handleImageError"
               />
+              <div
+                v-else
+                style="width: 100%; height: 200px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;"
+              >
+                表单装饰图
+              </div>
               <div>
                 <h3 style="text-align: center">有朋自远方来</h3>
                 <div>
@@ -95,9 +112,17 @@
                 </div>
                 <div>
                   <img
+                    v-if="$store.state.webInfo.randomCover && $store.state.webInfo.randomCover.length > 10"
                     :src="$store.state.webInfo.randomCover[10]"
                     style="width: 100%; margin: 5px auto"
+                    @error="handleImageError"
                   />
+                  <div
+                    v-else
+                    style="width: 100%; height: 150px; margin: 5px auto; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;"
+                  >
+                    友链装饰图
+                  </div>
                 </div>
                 <p
                   style="
@@ -112,10 +137,19 @@
             </div>
           </div>
           <img
+            v-if="$store.state.webInfo.randomCover && $store.state.webInfo.randomCover.length > 9"
             class="after-img"
             :src="$store.state.webInfo.randomCover[9]"
             style="width: 100%"
+            @error="handleImageError"
           />
+          <div
+            v-else
+            class="after-img"
+            style="width: 100%; height: 259px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;"
+          >
+            信封底部装饰
+          </div>
         </div>
         <hr />
         <h2 style="color: var(--red)">
@@ -193,6 +227,7 @@ export default {
     };
   },
   created() {
+    this.getWebInfo();
     this.getFriends();
   },
   methods: {
@@ -327,6 +362,32 @@ export default {
             offset: 50,
           });
         });
+    },
+    getWebInfo() {
+      // 检查是否已加载webInfo数据
+      if (this.$store.state.webInfo.randomCover.length === 0) {
+        this.$http
+          .get(this.$constant.baseURL + "/webInfo/getWebInfo")
+          .then((res) => {
+            if (!this.$common.isEmpty(res.result[0])) {
+              this.$store.commit("loadWebInfo", res.result[0].data[0]);
+            }
+          })
+          .catch((error) => {
+            console.error("Failed to load webInfo:", error);
+            this.$notify({
+              type: "error",
+              title: "可恶🤬",
+              message: "加载网站信息失败",
+              position: "top-left",
+              offset: 50,
+            });
+          });
+      }
+    },
+    handleImageError(event) {
+      console.warn("Image failed to load:", event.target.src);
+      // 可以在这里添加更多的错误处理逻辑
     },
   },
 };
